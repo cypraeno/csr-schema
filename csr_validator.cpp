@@ -44,6 +44,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    // Version must come first in the file.
     std::string versionLine;
     if (!parseVersion(csrFile, versionLine)) {
         std::cerr << "Unsupported version or version line missing: [" << versionLine << "]" << std::endl;
