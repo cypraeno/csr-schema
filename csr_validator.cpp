@@ -11,19 +11,25 @@ std::string trim(const std::string& str) {
     return str.substr(first, (last - first + 1));
 }
 
-bool parseVersion(std::ifstream& file) {
+
+bool isComment(const std::string& line) {
+    // Check if the first non-whitespace character is '#'
+    for (char ch : line) {
+        if (std::isspace(ch)) continue; // Skip whitespace
+        return ch == '#';
+    }
+    return false;
+}
+
+bool parseVersion(std::ifstream& file, std::string& versionLine) {
     std::string line;
-    std::getline(file, line); // Read the comment line
-    if (!std::getline(file, line)) {
-        std::cerr << "Failed to read version line." << std::endl;
-        return false;
+    while (std::getline(file, line)) {
+        line = trim(line);
+        if (isComment(line) || line.empty()) continue;
+        versionLine = line;
+        break;
     }
-    line = trim(line); // Trim whitespace
-    if (line != "version 0.1.0") {
-        std::cerr << "Unsupported version or version line missing: " << line << std::endl;
-        return false;
-    }
-    return true;
+    return !versionLine.empty() && versionLine == "version 0.1.0";
 }
 
 int main(int argc, char** argv) {
@@ -38,8 +44,10 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    if (!parseVersion(csrFile)) {
-        return 1; // Version parsing failed
+    std::string versionLine;
+    if (!parseVersion(csrFile, versionLine)) {
+        std::cerr << "Unsupported version or version line missing: [" << versionLine << "]" << std::endl;
+        return 1;
     }
 
     std::cout << "CSR file validation passed." << std::endl;
