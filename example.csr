@@ -1,0 +1,25 @@
+version 0.1.0
+
+Camera
+lookfrom 13 2 3
+lookat 0 0 0
+vup 0 1 0
+vfov 20
+aspect_ratio 16/9
+aperture 0.0001
+focus_dist 10.0
+
+Material[Lambertian]
+texture no
+albedo 1 0 0
+
+
+Sphere
+position 0 -10 0
+material 0
+radius 10.0
+
+Sphere
+position 0 10 0
+material 0
+radius 10.0
