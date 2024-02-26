@@ -1,25 +1,40 @@
 version 0.1.0
 
 Camera
-lookfrom 13 2 3
-lookat 0 0 0
+lookfrom 20 1 0
+lookat 0 0 2
 vup 0 1 0
 vfov 20
 aspect_ratio 16/9
 aperture 0.0001
-focus_dist 10.0
+focus_dist 20.0
 
 Material[Lambertian]
+id wowie_zowie
 texture no
-albedo 1 0 0
+albedo 0.9 0.002 0
 
+Material[Lambertian]
+id bruh
+texture no
+albedo 0.2 0.3 1
+
+Material[Lambertian]
+id ooh
+texture no
+albedo 0.3 0.1 0.09
 
 Sphere
 position 0 -10 0
-material 0
+material wowie_zowie
 radius 10.0
 
 Sphere
 position 0 10 0
-material 0
+material bruh
 radius 10.0
+
+Sphere
+position 8 -0.5 0
+material ooh
+radius 0.5
