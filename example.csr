@@ -14,23 +14,55 @@ id wowie_zowie
 texture no
 albedo 0.9 0.002 0
 
-Material[Lambertian]
-id bruh
-texture no
-albedo 0.2 0.3 1
+Material[Metal]
+id metal_example
+albedo 0.2 0.3 0.1
+fuzz 0.25
+
+Material[Dielectric]
+id dielectric_example
+ir 1.9
+
+Texture[Image]
+id earth
+path ../images/earthmap.jpg
+
+Texture[Checker]
+id checker_example
+scale 0.8
+c1 0.2 0.3 0.1
+c2 0.9 0.9 0.9
 
 Material[Lambertian]
-id ooh
-texture no
-albedo 0.3 0.1 0.09
+id checker_mat
+texture checker_example
 
 Material[Lambertian]
-id red
-texture no
-albedo 1.0 0.2 0.2
+id earth_mat
+texture earth
+
+Sphere
+position 0 1 2
+material metal_example
+radius 1.0
+
+Sphere
+position 0 -2 -2
+material dielectric_example
+radius 2
+
+Sphere
+position 0 -20 0
+material checker_mat
+radius 10
+
+Sphere
+position 0 1 0
+material earth_mat
+radius 2
 
 Quad
-position 0 -2 -2
-u 0 0 4
+position 0 -2 -1.5
+u 2 0 2
 v 0 4 0
-material red
+material wowie_zowie
