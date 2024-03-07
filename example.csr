@@ -1,4 +1,4 @@
-version 0.1.0
+version 0.1.1
 
 Camera
 lookfrom 9 1.5 0
@@ -46,6 +46,16 @@ texture checker_example
 Material[Lambertian]
 id earth_mat
 texture earth
+
+Material[Emissive]
+id light_example
+rgb 1 1 1
+strength 50
+
+Sphere
+position 0 0 7
+material light_example
+radius 1
 
 Sphere
 position -1 -1 3
