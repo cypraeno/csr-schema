@@ -1,0 +1,67 @@
+version 0.1.1
+
+# run with -r 600 600
+Camera
+lookfrom 278 278 -800
+lookat 278 278 0
+vup 0 1 0
+vfov 40
+aspect_ratio 1/1
+aperture 0.0001
+focus_dist 10.0
+
+Material[Lambertian]
+id red
+texture no
+albedo 0.65 0.05 0.05
+
+Material[Lambertian]
+id white
+texture no
+albedo 0.73 0.73 0.73
+
+Material[Lambertian]
+id green
+texture no
+albedo 0.12 0.45 0.15
+
+Material[Emissive]
+id lightmaterial
+rgb 1 1 1
+strength 15
+
+Quad
+position 555 0 0
+u 0 555 0
+v 0 0 555
+material green
+
+Quad
+position 0 0 0
+u 0 555 0
+v 0 0 555
+material red
+
+Quad
+position 343 554 332
+u -130 0 0
+v 0 0 -105
+material lightmaterial
+
+Quad
+position 0 0 0
+u 555 0 0
+v 0 0 555
+material white
+
+Quad
+position 555 555 555
+u -555 0 0
+v 0 0 -555
+material white
+
+Quad
+position 0 0 555
+u 555 0 0
+v 0 555 0
+material white
