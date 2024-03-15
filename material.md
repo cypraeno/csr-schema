@@ -106,7 +106,7 @@ ir 1.5
 Whereas a diamond refracts a lot of light to get that gem look, so its `ir` is `2.4` (high density).
 
 Medium | Index of Refraction
-- | -
+-|-
 Vacuum | 1
 Helium | 1.000036
 Water | 1.30
