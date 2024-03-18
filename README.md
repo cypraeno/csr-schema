@@ -1,2 +1,2 @@
 # csr-schema
-Schema repository for the Caitlyn Scene Representation format (.csr). Includes validator and documentation.
+[Basic Guide](https://github.com/cypraeno/csr-schema/blob/main/basic-guide.md)
