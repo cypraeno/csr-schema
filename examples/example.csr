@@ -1,13 +1,13 @@
-version 0.1.1
+version 0.1.2
 
 Camera
-lookfrom 9 1.5 0
-lookat 0 0 0
+lookfrom 15 1.5 -1
+lookat 0 0 -1
 vup 0 1 0
-vfov 80
+vfov 40
 aspect_ratio 16/9
-aperture 0.0001
-focus_dist 10.0
+aperture 0.001
+focus_dist 15
 
 Material[Lambertian]
 id wowie_zowie
@@ -17,7 +17,12 @@ albedo 0.9 0.002 0
 Material[Lambertian]
 id blue
 texture no
-albedo 0.4 0.4 1.0
+albedo 0.1 0.1 1.0
+
+Material[Lambertian]
+id green
+texture no
+albedo 0.1 1.0 0.1
 
 
 Material[Metal]
@@ -50,20 +55,20 @@ texture earth
 Material[Emissive]
 id light_example
 rgb 1 1 1
-strength 50
+strength 20
 
 Sphere
-position 0 0 7
+position 2 1 -4
 material light_example
-radius 1
+radius 0.75
 
 Sphere
-position -1 -1 3
+position 7 -1 -2
 material metal_example
 radius 1.0
 
 Sphere
-position 0 0 0
+position 2 0 4
 material dielectric_example
 radius 2
 
@@ -73,9 +78,14 @@ material checker_mat
 radius 17.5
 
 Sphere
-position -5 0 -2
+position -5 0 -3
 material earth_mat
 radius 2
+
+Sphere
+position 0 -0.5 2
+material green
+radius 1.5
 
 Quad
 position -10 -2 -50
@@ -84,7 +94,20 @@ v 20 0 0
 material wowie_zowie
 
 Quad
-position 4 -2 -8 
-u -4 0 4
+position 4 -2 -9 
+u -8 0 2
 v 0 4 0
 material blue
+
+Texture[Noise]
+id noise_example
+scale 4
+
+Material[Lambertian]
+id perlin_noise_example
+texture noise_example
+
+Sphere
+position -3 -0.5 0
+material perlin_noise_example
+radius 1.5
