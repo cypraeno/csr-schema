@@ -1,4 +1,5 @@
 #include "helpers.h"
+#include "texture_validator.h"
 #include "material_validator.h"
 
 bool parseVersion(std::ifstream& file, std::string& versionLine) {
@@ -36,7 +37,24 @@ int main(int argc, char** argv) {
     std::vector<std::string> primitives;
 
     std::string line;
-    while(csrFile >> line) {
+    while(std::getline(csrFile, line)) {
+
+        if (line.find("Texture") != std::string::npos) {
+
+            size_t start_pos = line.find_first_of('[');
+            if (start_pos == std::string::npos) {
+                std::cerr << "Error: Texture type indicator <<[>> missing" << std::endl;
+                return 2;
+            }
+            size_t end_pos = line.find_first_of(']', start_pos);
+            if (end_pos == std::string::npos) {
+                std::cerr << "Error: Texture type indicator <<]>> missing" << std::endl;
+                return 2;
+            }
+
+            std::string texture_type = line.substr(start_pos, end_pos - start_pos + 1);
+            if (!isTexture(csrFile, texture_type, textures)) return 2;
+        }
 
         if (line.find("Material") != std::string::npos) {
 
@@ -52,9 +70,10 @@ int main(int argc, char** argv) {
             }
 
             std::string material_type = line.substr(start_pos, end_pos - start_pos + 1);
-            if (!isMaterial(csrFile, material_type, textures, materials)) return 2;
-            
+            if (!isMaterial(csrFile, material_type, textures, materials)) return 2;   
         }
+
+        
 
     }
 
