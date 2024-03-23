@@ -8,6 +8,11 @@
 #include <vector>
 #include <map>
 #include <functional>
+#include <limits>
+
+// Constants
+const double P_INF = std::numeric_limits<double>::infinity();
+const double N_INF = -std::numeric_limits<double>::infinity();
 
 /**
  * @brief Trims a string of leading and trailing whitespace
