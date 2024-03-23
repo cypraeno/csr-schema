@@ -16,7 +16,7 @@ std::map<std::string, materialValidatorFunction> materialValidatorMap {
     { "[Metal]", isMetal },
 };
 
-bool isMaterial(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _textures, std::string& _material_type) {
+bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
 
     // Check for valid material type
     auto matIt = materialValidatorMap.find(_material_type);
