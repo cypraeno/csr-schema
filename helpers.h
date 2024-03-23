@@ -6,6 +6,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <map>
+#include <functional>
 
 /**
  * @brief Trims a string of leading and trailing whitespace
@@ -29,5 +31,24 @@ std::string trim(const std::string& _str);
  * @note A line is a comment if the first non-whitespace character is "#"
  */
 bool isComment(const std::string& _line);
+
+/**
+ * @brief Wrapper function that outputs the error passed through and returns false
+ * 
+ * @param[in] _error The error string to be output in std::err stream
+ * 
+ * @return false
+ */
+bool outputError(const std::string& _error);
+
+/**
+ * @brief Wrapper function to check if a line is a valid id, and assign the id if it is
+ * 
+ * @param[in]   _line The line being validatted
+ * @param[out]  _id   The id being assigned
+ * @return true if id is valid
+ *         false otherwise
+ */
+bool isId(const std::string& _line, std::string& _id);
 
 #endif

@@ -16,3 +16,15 @@ bool isComment(const std::string& _line) {
     }
     return false;
 }
+
+bool outputError(const std::string& _error) {
+    std::cerr << _error << std::endl;
+    return false;
+}
+
+bool isId(const std::string& _line, std::string& _id) {
+    std::string line = trim(_line);
+    if (line.substr(0, 2) != "id") return false;
+    _id = line.substr(3);
+    return true;
+}
