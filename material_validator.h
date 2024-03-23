@@ -1,6 +1,8 @@
 #ifndef MAT_VALIDATOR
 #define MAT_VALIDATOR
+
 #include "helpers.h"
+#include "general_validators.h"
 
 /**
  * @brief List of available material types (updated regularily)

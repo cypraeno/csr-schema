@@ -44,11 +44,7 @@ bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
     
     iss.str(line);
-    if (!(iss >> keyword) || keyword != "ir") return outputError("Error: Expected ir");
-
-    double ir;
-    if (!(iss >> ir)) return outputError("Error: Invalid ir value type");
-    if (ir < 1) return outputError("Error: ir value not in range");
+    if (!isDouble(iss, "ir", 1.0, P_INF)) return false;
 
     // Success
     return true;
@@ -63,23 +59,13 @@ bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
-    if (!(iss >> keyword) || keyword != "rgb") return outputError("Error: Expected rgb");
-
-    double r, g, b;
-    if (!(iss >> r >> g >> b)) return outputError("Error: Invalid rgb value type");
-    if (r < 0.0 || 255.0 < r) return outputError("Error: r value not in range");
-    if (g < 0.0 || 255.0 < g) return outputError("Error: g value not in range");
-    if (b < 0.0 || 255.0 < b) return outputError("Error: b value not in range");
+    if (!isXYZ(iss, "rgb", 0.0, 255.0)) return false;
 
     // Check for valid strength
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
-    if (!(iss >> keyword) || keyword != "strength") return outputError("Error: Expected strength");
-
-    double strength;
-    if (!(iss >> strength)) return outputError("Error: Invalid strength value type");
-    if (strength < 0.0) return outputError("Error: strength value not in range");
+    if (!isDouble(iss, "strength", 0.0, P_INF)) return false;
 
     // Success
     return true;
@@ -107,13 +93,7 @@ bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
-    if (!(iss >> keyword) || keyword != "albedo") return outputError("Error: Expected albedo");
-
-    double r, g, b;
-    if (!(iss >> r >> g >> b)) return outputError("Error: Invalid albedo value type");
-    if (r < 0.0 || 255.0 < r) return outputError("Error: R value not in range");
-    if (g < 0.0 || 255.0 < g) return outputError("Error: G value not in range");
-    if (b < 0.0 || 255.0 < b) return outputError("Error: B value not in range");
+    if (!isXYZ(iss, "albedo", 0.0, 255.0)) return false;
 
     // Success
     return true;
@@ -128,23 +108,13 @@ bool isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
-    if (!(iss >> keyword) || keyword != "albedo") return outputError("Error: Expected albedo");
-
-    double r, g, b;
-    if (!(iss >> r >> g >> b)) return outputError("Error: Invalid albedo value type");
-    if (r < 0.0 || 255.0 < r) return outputError("Error: R value not in range");
-    if (g < 0.0 || 255.0 < g) return outputError("Error: G value not in range");
-    if (b < 0.0 || 255.0 < b) return outputError("Error: B value not in range");
+    if (!isXYZ(iss, "albedo", 0.0, 255.0)) return false;
 
     // Check for valid fuzz
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
-    if (!(iss >> keyword) || keyword != "fuzz") return outputError("Error: Expected fuzz");
-
-    double fuzz;
-    if (!(iss >> fuzz)) return outputError("Error: Invalid fuzz value type");
-    if (fuzz < 0.0) return outputError("Error: fuzz value not in range");
+    if (!isDouble(iss, "fuzz", 0.0, P_INF)) return false;
 
     // Success
     return true;
