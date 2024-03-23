@@ -7,7 +7,7 @@
 /**
  * @brief List of available texture types (updated regularily)
  */
-const enum material_types {
+const enum texture_types {
     CHECKER,
     IMAGE,
 };
