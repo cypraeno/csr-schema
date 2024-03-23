@@ -35,6 +35,29 @@ int main(int argc, char** argv) {
     std::vector<std::string> textures;
     std::vector<std::string> primitives;
 
+    std::string line;
+    while(csrFile >> line) {
+
+        if (line.find("Material") != std::string::npos) {
+
+            size_t start_pos = line.find_first_of('[');
+            if (start_pos == std::string::npos) {
+                std::cerr << "Error: Material type indicator <<[>> missing" << std::endl;
+                return 2;
+            }
+            size_t end_pos = line.find_first_of(']', start_pos);
+            if (end_pos == std::string::npos) {
+                std::cerr << "Error: Material type indicator <<]>> missing" << std::endl;
+                return 2;
+            }
+
+            std::string material_type = line.substr(start_pos, end_pos - start_pos + 1);
+            if (!isMaterial(csrFile, material_type, textures, materials)) return 2;
+            
+        }
+
+    }
+
     std::cout << "CSR file validation passed." << std::endl;
 
     return 0;
