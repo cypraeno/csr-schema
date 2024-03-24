@@ -34,14 +34,16 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    if (!isCamera(csrFile)) return 1;
+    std::string line;
+
+    if (!std::getline(csrFile, line) || line != "Camera") return 1;
+    if (!isCamera(csrFile)) return 2;
 
     std::vector<std::string> materials;
     std::vector<std::string> textures;
     // std::vector<std::string> primitives;         USE IN FUTURE IF PRIMITIVES CAN BE ASSIGNED TO MESHES
 
     // EDGE CASE: if the user names a Material as Material[Texture]
-    std::string line;
     while(std::getline(csrFile, line)) {
 
         if (isComment(line)) continue;
