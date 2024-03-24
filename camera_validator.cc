@@ -28,7 +28,7 @@ bool isCamera(std::ifstream& _file) {
     // Check for valid aspect ratio
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
-    if (!isRatio(iss, "aperture", 0.0, P_INF)) return false;
+    if (!isRatio(iss, "aspect_ratio", 0.0, P_INF)) return false;
 
     // Check for valid aperture
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
