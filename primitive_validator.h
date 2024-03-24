@@ -5,14 +5,6 @@
 #include "general_validators.h"
 
 /**
- * @brief List of available primitive types (updated regularily)
- */
-const enum primitive_types {
-    QUAD,
-    SPHERE,
-};
-
-/**
  * @brief Checks if a file section starting with "Quad" is a validly formatted .csr quad
  * 
  * @param[in] _file         The file being validated

@@ -5,14 +5,6 @@
 #include "general_validators.h"
 
 /**
- * @brief List of available texture types (updated regularily)
- */
-const enum texture_types {
-    CHECKER,
-    IMAGE,
-};
-
-/**
  * @brief Checks if a file section starting with "Texture" is a validly formatted .csr texture
  * 
  * @param[in]   _file             the file being validated
