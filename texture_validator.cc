@@ -48,7 +48,7 @@ bool isChecker(std::ifstream& _file) {
     iss.str(line);
     if (!isXYZ(iss, "c1", 0.0, 255.0)) return false;
 
-    // Check for valid c1
+    // Check for valid c2
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
