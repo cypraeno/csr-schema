@@ -30,6 +30,8 @@ bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std
         _textures.push_back(id);
         return true;
     }
+    
+    return false;
 }
 
 bool isChecker(std::ifstream& _file) {
@@ -54,6 +56,9 @@ bool isChecker(std::ifstream& _file) {
 
     iss.str(line);
     if (!isXYZ(iss, "c2", 0.0, 255.0)) return false;
+
+    // Success
+    return true;
 }
 
 bool isImage(std::ifstream& _file) {

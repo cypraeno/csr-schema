@@ -30,6 +30,9 @@ bool isDouble(std::istringstream& _iss, const std::string& _keyword, const doubl
     double value;
     if(!(_iss >> value)) return outputError("Error: Invalid " + _keyword + " value type");
     if (value < _min || _max < value) return outputError("Error: Value not in range");
+
+    // Success
+    return true;
 }
 
 bool isXYZ(std::istringstream& _iss, const std::string& _keyword, const double _min, const double _max) {
@@ -73,4 +76,6 @@ bool isMember(std::istringstream& _iss, const std::string& _keyword, std::vector
     auto it = std::find(_members.begin(), _members.end(), member);
     if (it == _members.end()) return outputError("Error: Invalid " + _keyword + " id");
 
+    // Success
+    return true;
 }

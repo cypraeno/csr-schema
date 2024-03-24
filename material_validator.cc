@@ -33,6 +33,8 @@ bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<s
         _materials.push_back(id);
         return true;
     }
+
+    return false;
 }
 
 bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {

@@ -50,4 +50,7 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
         auto it = std::find(_materials.begin(), _materials.end(), material);
         if (it == _materials.end()) return outputError("Error: Invalid material id");
     }
+
+    // Success
+    return true;
 }

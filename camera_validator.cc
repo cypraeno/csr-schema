@@ -39,4 +39,7 @@ bool isCamera(std::ifstream& _file) {
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
     if (!isDouble(iss, "focus_dist", N_INF, P_INF)) return false;
+
+    // Success
+    return true;
 }
