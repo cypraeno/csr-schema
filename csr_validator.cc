@@ -1,6 +1,7 @@
 #include "helpers.h"
 #include "texture_validator.h"
 #include "material_validator.h"
+#include "primitive_validator.h"
 
 bool parseVersion(std::ifstream& file, std::string& versionLine) {
     std::string line;
@@ -32,10 +33,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    
+
     std::vector<std::string> materials;
     std::vector<std::string> textures;
-    std::vector<std::string> primitives;
+    // std::vector<std::string> primitives;         USE IN FUTURE IF PRIMITIVES CAN BE ASSIGNED TO MESHES
 
+    // EDGE CASE: if the user names a Material as Material[Texture]
     std::string line;
     while(std::getline(csrFile, line)) {
 
@@ -73,7 +77,9 @@ int main(int argc, char** argv) {
             if (!isMaterial(csrFile, material_type, textures, materials)) return 2;   
         }
 
-        
+        if (trim(line) == "Quad" && !isQuad(csrFile, materials)) return 2;
+
+        if (trim(line) == "Sphere" && !isSphere(csrFile, materials)) return 2;
 
     }
 
