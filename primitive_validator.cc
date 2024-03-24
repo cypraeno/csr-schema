@@ -9,13 +9,11 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     
     // Check for valid position
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
-
     iss.str(line);
     if (!isXYZ(iss, "position", N_INF, P_INF)) return false;
 
     // Check for valid u
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
-
     iss.str(line);
     if (!isXYZ(iss, "u", N_INF, P_INF)) return false;
 
@@ -26,7 +24,6 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     
     // Check for valid v
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
-
     iss.str(line);
     if (!isXYZ(iss, "v", N_INF, P_INF)) return false;
 
@@ -50,6 +47,38 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
         auto it = std::find(_materials.begin(), _materials.end(), material);
         if (it == _materials.end()) return outputError("Error: Invalid material id");
     }
+
+    // Success
+    return true;
+}
+
+bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials) {
+
+    std::string line, keyword;
+    std::istringstream iss;
+    
+    // Check for valid position
+    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    iss.str(line);
+    if (!isXYZ(iss, "position", N_INF, P_INF)) return false;
+
+    // Check for valid material
+    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+
+    iss.str(line);
+    if (!(iss >> keyword) || keyword != "material") return outputError("Error: Expected material");
+
+    std::string material;
+    if (!(iss >> material)) return outputError("Error: No material id found");
+    if (material != "no") {
+        auto it = std::find(_materials.begin(), _materials.end(), material);
+        if (it == _materials.end()) return outputError("Error: Invalid material id");
+    }
+
+    // Check for valid radius
+    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    iss.str(line);
+    if (!isDouble(iss, "radius", 0.0, P_INF)) return false;
 
     // Success
     return true;
