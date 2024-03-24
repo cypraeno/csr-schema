@@ -23,6 +23,7 @@ bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std
     // Check for valid ID
     if (!std::getline(_file, _line)) return outputError("Error: Unexpected EOF");
     if (!isId(_line, id)) return outputError("Error: Expected id");
+    if (id == "no") return outputError("Error: 'no' is reserved");
 
     // Success
     if (texIt->second(_file)) {
