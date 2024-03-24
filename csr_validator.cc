@@ -44,6 +44,8 @@ int main(int argc, char** argv) {
     std::string line;
     while(std::getline(csrFile, line)) {
 
+        if (isComment(line)) continue;
+
         if (line.find("Texture") != std::string::npos) {
 
             size_t start_pos = line.find_first_of('[');
