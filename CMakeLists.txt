@@ -5,6 +5,7 @@ project(CSRValidator VERSION 0.1.0)
 add_executable(csr_validator 
                helpers.cc 
                general_validators.cc 
+               camera_validator.cc
                texture_validator.cc 
                material_validator.cc 
                primitive_validator.cc
