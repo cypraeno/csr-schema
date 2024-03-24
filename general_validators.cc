@@ -29,7 +29,7 @@ bool isDouble(std::istringstream& _iss, const std::string& _keyword, const doubl
 
     double value;
     if(!(_iss >> value)) return outputError("Error: Invalid " + _keyword + " value type");
-    if (value < _min || _max < value) return outputError("Error: value not in range");
+    if (value < _min || _max < value) return outputError("Error: Value not in range");
 }
 
 bool isXYZ(std::istringstream& _iss, const std::string& _keyword, const double _min, const double _max) {
@@ -39,9 +39,25 @@ bool isXYZ(std::istringstream& _iss, const std::string& _keyword, const double _
 
     double x, y, z;
     if (!(_iss >> x >> y >> z)) return outputError("Error: Invalid " + _keyword + " value type");
-    if (x < _min || _max < x) return outputError("Error: first value not in range");
-    if (y < _min || _max < y) return outputError("Error: second value not in range");
-    if (z < _min || _max < z) return outputError("Error: third value not in range");
+    if (x < _min || _max < x) return outputError("Error: First value not in range");
+    if (y < _min || _max < y) return outputError("Error: Second value not in range");
+    if (z < _min || _max < z) return outputError("Error: Third value not in range");
+
+    // Success
+    return true;
+}
+
+bool isRatio(std::istringstream& _iss, const std::string& _keyword, const double _min, const double _max) {
+
+    std::string word;
+    if (!(_iss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
+
+    double x, y;
+    char slash;
+
+    if (!(_iss >> x >> slash >> y) || slash != '/') return outputError("Error: No " + _keyword + " id found");
+    if (y = 0) return outputError("Error: Denominator is 0");
+    if (x / y < _min || _max < x / y) return outputError("Error: Ratio not in range");
 
     // Success
     return true;
