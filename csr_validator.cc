@@ -12,7 +12,7 @@ bool parseVersion(std::ifstream& file, std::string& versionLine) {
         versionLine = line;
         break;
     }
-    return !versionLine.empty() && versionLine == "version 0.1.0";
+    return !versionLine.empty();
 }
 
 int main(int argc, char** argv) {
