@@ -1,4 +1,5 @@
 #include "helpers.h"
+#include "camera_validator.h"
 #include "texture_validator.h"
 #include "material_validator.h"
 #include "primitive_validator.h"
@@ -33,7 +34,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    
+    if (!isCamera(csrFile)) return 1;
 
     std::vector<std::string> materials;
     std::vector<std::string> textures;
