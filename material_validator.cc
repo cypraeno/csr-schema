@@ -22,11 +22,11 @@ bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<s
     auto matIt = materialValidatorMap.find(_material_type);
     if (matIt == materialValidatorMap.end()) outputError("Error: Unknown material type: " + _material_type);
 
-    std::string _line, id;
+    std::string line, id;
     
     // Check for valid ID
-    if (!std::getline(_file, _line)) return outputError("Error: Unexpected EOF");
-    if (!isId(_line, id)) return outputError("Error: Expected id");
+    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!isId(line, id)) return outputError("Error: Expected id");
 
     // Success
     if (matIt->second(_file, _textures)) {
@@ -37,7 +37,7 @@ bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<s
 
 bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
     
-    std::string line, keyword;
+    std::string line;
     std::istringstream iss;
 
     // Check for valid IR
@@ -52,7 +52,7 @@ bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
 
 bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
 
-    std::string line, keyword;
+    std::string line;
     std::istringstream iss;
 
     // Check for valid RGB
@@ -91,7 +91,6 @@ bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
 
     // Check for valid albedo
     if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
-
     iss.str(line);
     if (!isXYZ(iss, "albedo", 0.0, 255.0)) return false;
 
@@ -101,7 +100,7 @@ bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
 
 bool isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
 
-    std::string line, keyword;
+    std::string line;
     std::istringstream iss;
 
     // Check for valid albedo
