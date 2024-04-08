@@ -2,79 +2,88 @@
 
 namespace fs = std::experimental::filesystem;
 
-bool isFilePath(std::istringstream& _iss) {
+bool isFilePath(std::stringstream& _ss) {
 
     std::string word;
-    if (!(_iss >> word) || word != "path") return outputError("Error: Expected path");
+    if (!(_ss >> word) || word != "path") return outputError("Error: Expected path");
 
     std::string path;
-    if (!(_iss >> path)) return outputError("Error: Invalid path");
+    if (!(_ss >> path)) return outputError("Error: Invalid path");
 
     // Check if the file exists
-    if (!fs::exists(path)) outputError("Error: File does not exist");
+    if (!fs::exists(path)) return outputError("Error: File does not exist");
 
     // Check if the file is accessible
     std::ifstream file(path);
-    if (!file.is_open()) outputError("Error: Unable to open file");
+    if (!file.is_open()) return outputError("Error: Unable to open file");
     file.close();
+
+    resetsstream(_ss);
 
     // Success
     return true; 
 }
 
-bool isDouble(std::istringstream& _iss, const std::string& _keyword, const double _min, const double _max) {
+bool isDouble(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
     
     std::string word;
-    if (!(_iss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
+    if (!(_ss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
 
     double value;
-    if(!(_iss >> value)) return outputError("Error: Invalid " + _keyword + " value type");
+    if(!(_ss >> value)) return outputError("Error: Invalid " + _keyword + " value type");
     if (value < _min || _max < value) return outputError("Error: Value not in range");
+
+    resetsstream(_ss);
 
     // Success
     return true;
 }
 
-bool isXYZ(std::istringstream& _iss, const std::string& _keyword, const double _min, const double _max) {
+bool isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
 
     std::string word;
-    if (!(_iss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
-
+    if (!(_ss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
     double x, y, z;
-    if (!(_iss >> x >> y >> z)) return outputError("Error: Invalid " + _keyword + " value type");
+    if (!(_ss >> x >> y >> z)) return outputError("Error: Invalid " + _keyword + " value type");
     if (x < _min || _max < x) return outputError("Error: First value not in range");
     if (y < _min || _max < y) return outputError("Error: Second value not in range");
     if (z < _min || _max < z) return outputError("Error: Third value not in range");
 
+    resetsstream(_ss);
+
     // Success
     return true;
 }
 
-bool isRatio(std::istringstream& _iss, const std::string& _keyword, const double _min, const double _max) {
+bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
 
     std::string word;
-    if (!(_iss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
+    if (!(_ss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
 
     double x, y;
     char slash;
 
-    if (!(_iss >> x >> slash >> y) || slash != '/') return outputError("Error: No " + _keyword + " id found");
+    if (!(_ss >> x >> slash >> y) || slash != '/') return outputError("Error: No " + _keyword + " id found");
     if (y = 0) return outputError("Error: Denominator is 0");
     if (x / y < _min || _max < x / y) return outputError("Error: Ratio not in range");
+
+    resetsstream(_ss);
 
     // Success
     return true;
 }
 
-bool isMember(std::istringstream& _iss, const std::string& _keyword, std::vector<std::string>& _members) {
+bool isMember(std::stringstream& _ss, const std::string& _keyword, std::vector<std::string>& _members) {
 
     std::string word;
-    if (!(_iss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
+    if (!(_ss >> word) || word != _keyword) return outputError("Error: Expected " + _keyword);
 
     std::string member;
-    if (!(_iss >> member)) return outputError("Error: No " + _keyword + " id found");
+    if (!(_ss >> member)) return outputError("Error: No " + _keyword + " id found");
     auto it = std::find(_members.begin(), _members.end(), member);
     if (it == _members.end()) return outputError("Error: Invalid " + _keyword + " id");
+
+    resetsstream(_ss);
 
     // Success
     return true;
