@@ -39,5 +39,5 @@ bool getCSRLine(std::istream& _istream, std::string& _line) {
         output = trim(_output);
     }
 
-    return static_cast<bool>(std::cin)
+    return static_cast<bool>(std::cin);
 }
