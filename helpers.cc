@@ -1,5 +1,7 @@
 #include "helpers.h"
 
+int lineNum = 0;
+
 std::string trim(const std::string& _str) {
     std::string whitespace = " \t\r\n"; // Include carriage return and tab
     size_t first = _str.find_first_not_of(whitespace);
@@ -18,7 +20,7 @@ bool isComment(const std::string& _line) {
 }
 
 bool outputError(const std::string& _error) {
-    std::cerr << _error << std::endl;
+    std::cerr << lineNum << " " << _error << std::endl;
     return false;
 }
 
@@ -29,23 +31,29 @@ bool isId(const std::string& _line, std::string& _id) {
     return true;
 }
 
-bool getCSRLine(std::istream& _istream, std::string& _line) {
+std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
     std::string _output, output;
 
     output = "";
 
-    while(isComment(output) || output.empty()) {
-        std::getline(_istream, _output);
+    while((isComment(output) || output.empty()) && std::getline(_istream, _output)) {
         output = trim(_output);
+        ++lineNum;
     }
-    
-    if (std::cin) _line = output;
+    if (!std::cin.fail()) _line = output;
 
-    return static_cast<bool>(std::cin);
+    return _istream;
 }
 
 bool parseVersion(std::ifstream& file, std::string& versionLine) {
     std::string line;
     if (getCSRLine(file, line)) versionLine = line;
     return !versionLine.empty();
+}
+
+void resetsstream(std::stringstream& _ss) {
+    _ss.str(""); // Clear contents
+    _ss.clear(); // Reset internal state flags
+    _ss.seekg(0); // Reset read position
+    _ss.seekp(0); // Reset write position
 }

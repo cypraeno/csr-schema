@@ -61,11 +61,12 @@ bool isId(const std::string& _line, std::string& _id);
  * 
  * @param[in]   _istream the input stream
  * @param[out]  _line the string being written to
- * @return true if line was succesfully extracted
- *         false otherwise
+ * @return A reference to _istream
  */
-bool getCSRLine(std::istream& _istream, std::string& _line);
+std::istream& getCSRLine(std::istream& _istream, std::string& _line);
 
 bool parseVersion(std::ifstream& file, std::string& versionLine);
+
+void resetsstream(std::stringstream& _ss);
 
 #endif
