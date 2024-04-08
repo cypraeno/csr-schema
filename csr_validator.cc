@@ -16,16 +16,19 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    std::string line;
+
     // Version must come first in the file.
     std::string versionLine;
-    if (!parseVersion(csrFile, versionLine)) {
-        std::cerr << "Unsupported version or version line missing: [" << versionLine << "]" << std::endl;
+    if (!getCSRLine(csrFile, line) || !parseVersion(csrFile, line, versionLine)) {
+        outputError("Error: Unsupported version or version line missing <<" + versionLine + ">>");
         return 1;
     }
 
-    std::string line;
-
-    if (!getCSRLine(csrFile, line) || line != "Camera") return 1;
+    if (!getCSRLine(csrFile, line) || line != "Camera") {
+        outputError("Error: Expected Camera");
+        return 1;
+    }
     if (!isCamera(csrFile)) return 2;
 
     std::vector<std::string> materials;
@@ -39,12 +42,12 @@ int main(int argc, char** argv) {
 
             size_t start_pos = line.find_first_of('[');
             if (start_pos == std::string::npos) {
-                std::cerr << "Error: Texture type indicator <<[>> missing" << std::endl;
+                outputError("Error: Texture type indicator <<[>> missing");
                 return 2;
             }
             size_t end_pos = line.find_first_of(']', start_pos);
             if (end_pos == std::string::npos) {
-                std::cerr << "Error: Texture type indicator <<]>> missing" << std::endl;
+                outputError("Error: Texture type indicator <<]>> missing");
                 return 2;
             }
 
@@ -52,16 +55,16 @@ int main(int argc, char** argv) {
             if (!isTexture(csrFile, texture_type, textures)) return 2;
         }
 
-        if (line.find("Material") != std::string::npos) {
+        else if (line.find("Material") != std::string::npos) {
 
             size_t start_pos = line.find_first_of('[');
             if (start_pos == std::string::npos) {
-                std::cerr << "Error: Material type indicator <<[>> missing" << std::endl;
+                outputError("Error: Material type indicator <<[>> missing");
                 return 2;
             }
             size_t end_pos = line.find_first_of(']', start_pos);
             if (end_pos == std::string::npos) {
-                std::cerr << "Error: Material type indicator <<]>> missing" << std::endl;
+                outputError("Error: Material type indicator <<]>> missing");
                 return 2;
             }
 
@@ -69,12 +72,11 @@ int main(int argc, char** argv) {
             if (!isMaterial(csrFile, material_type, textures, materials)) return 2;   
         }
 
-        if (trim(line) == "Quad" && !isQuad(csrFile, materials)) return 2;
-
-        if (trim(line) == "Sphere" && !isSphere(csrFile, materials)) return 2;
+        else if (line == "Quad") if (!isQuad(csrFile, materials)) return 2;
+        else if (line == "Sphere") if (!isSphere(csrFile, materials)) return 2;
 
         else {
-            std::cerr << "Error: Invalid Line" << std::endl;
+            outputError("Error: Invalid Line <<" + line + ">>");
             return 2;
         }
     }
