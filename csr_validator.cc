@@ -72,8 +72,13 @@ int main(int argc, char** argv) {
             if (!isMaterial(csrFile, material_type, textures, materials)) return 2;   
         }
 
-        else if (line == "Quad") if (!isQuad(csrFile, materials)) return 2;
-        else if (line == "Sphere") if (!isSphere(csrFile, materials)) return 2;
+        else if (line == "Quad") { 
+            if (!isQuad(csrFile, materials)) return 2; 
+        }
+
+        else if (line == "Sphere") { 
+            if (!isSphere(csrFile, materials)) return 2; 
+        }
 
         else {
             outputError("Error: Invalid Line <<" + line + ">>");
