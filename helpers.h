@@ -56,4 +56,14 @@ bool outputError(const std::string& _error);
  */
 bool isId(const std::string& _line, std::string& _id);
 
+/**
+ * @brief Builds on std::getline() to get the next non-empty and non-commented line
+ * 
+ * @param[in]   _istream the input stream
+ * @param[out]  _line the string being written to
+ * @return true if line was succesfully extracted
+ *         false otherwise
+ */
+bool getCSRLine(std::istream& _istream, std::string& _line);
+
 #endif

@@ -28,3 +28,16 @@ bool isId(const std::string& _line, std::string& _id) {
     _id = line.substr(3);
     return true;
 }
+
+bool getCSRLine(std::istream& _istream, std::string& _line) {
+    std::string _output, output;
+
+    output = "";
+
+    while(isComment(output) || !output.size()) {
+        std::getline(_istream, _output);
+        output = trim(_output);
+    }
+
+    return static_cast<bool>(std::cin)
+}
