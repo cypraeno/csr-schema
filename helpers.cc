@@ -38,6 +38,8 @@ bool getCSRLine(std::istream& _istream, std::string& _line) {
         std::getline(_istream, _output);
         output = trim(_output);
     }
+    
+    if (std::cin) _line = output;
 
     return static_cast<bool>(std::cin);
 }
