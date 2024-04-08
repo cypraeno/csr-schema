@@ -40,13 +40,11 @@ bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<s
 bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
     
     std::string line;
-    std::istringstream iss;
+    std::stringstream ss;
 
     // Check for valid IR
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    
-    iss.str(line);
-    if (!isDouble(iss, "ir", 1.0, P_INF)) return false;
+    if (!(ss << line) || !isDouble(ss, "ir", 1.0, P_INF)) return false;
 
     // Success
     return true;
@@ -55,19 +53,15 @@ bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
 bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
 
     std::string line;
-    std::istringstream iss;
+    std::stringstream ss;
 
     // Check for valid RGB
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isXYZ(iss, "rgb", 0.0, 255.0)) return false;
+    if (!(ss << line) || !isXYZ(ss, "rgb", 0.0, 255.0)) return false;
 
     // Check for valid strength
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isDouble(iss, "strength", 0.0, P_INF)) return false;
+    if (!(ss << line) || !isDouble(ss, "strength", 0.0, P_INF)) return false;
 
     // Success
     return true;
@@ -76,25 +70,22 @@ bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
 bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
 
     std::string line, keyword;
-    std::istringstream iss;
+    std::stringstream ss;
 
     // Check for valid texture
-    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!(iss >> keyword) || keyword != "texture") return outputError("Error: Expected texture");
-
     std::string texture;
-    if (!(iss >> texture)) return outputError("Error: No texture id found");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!(ss << line) || !(ss >> keyword) || keyword != "texture") return outputError("Error: Expected texture");
+    if (!(ss >> texture)) return outputError("Error: No texture id found");
     if (texture != "no") {
         auto it = std::find(_textures.begin(), _textures.end(), texture);
         if (it == _textures.end()) return outputError("Error: Invalid texture id");
     }
+    resetsstream(ss);
 
     // Check for valid albedo
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    iss.str(line);
-    if (!isXYZ(iss, "albedo", 0.0, 255.0)) return false;
+    if (!(ss << line) || !isXYZ(ss, "albedo", 0.0, 255.0)) return false;
 
     // Success
     return true;
@@ -103,19 +94,15 @@ bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
 bool isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
 
     std::string line;
-    std::istringstream iss;
+    std::stringstream ss;
 
     // Check for valid albedo
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isXYZ(iss, "albedo", 0.0, 255.0)) return false;
+    if (!(ss << line) || !isXYZ(ss, "albedo", 0.0, 255.0)) return false;
 
     // Check for valid fuzz
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isDouble(iss, "fuzz", 0.0, P_INF)) return false;
+    if (!(ss << line) || !isDouble(ss, "fuzz", 0.0, P_INF)) return false;
 
     // Success
     return true;

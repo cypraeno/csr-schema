@@ -37,25 +37,19 @@ bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std
 bool isChecker(std::ifstream& _file) {
     
     std::string line, keyword;
-    std::istringstream iss;
+    std::stringstream ss;
 
     // Check for valid scale
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isDouble(iss, "scale", 0.0, P_INF)) return false;
+    if (!(ss << line) || !isDouble(ss, "scale", 0.0, P_INF)) return false;
 
     // Check for valid c1
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isXYZ(iss, "c1", 0.0, 255.0)) return false;
+    if (!(ss << line) || !isXYZ(ss, "c1", 0.0, 255.0)) return false;
 
     // Check for valid c2
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isXYZ(iss, "c2", 0.0, 255.0)) return false;
+    if (!(ss << line) || !isXYZ(ss, "c2", 0.0, 255.0)) return false;
 
     // Success
     return true;
@@ -64,13 +58,11 @@ bool isChecker(std::ifstream& _file) {
 bool isImage(std::ifstream& _file) {
 
     std::string line, keyword;
-    std::istringstream iss;
+    std::stringstream ss;
 
     // Check for valid path
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-
-    iss.str(line);
-    if (!isFilePath(iss)) return false;
+    if (!(ss << line) || !isFilePath(ss)) return false;
 
     // Success
     return true;
