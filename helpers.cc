@@ -20,7 +20,7 @@ bool isComment(const std::string& _line) {
 }
 
 bool outputError(const std::string& _error) {
-    std::cerr << "\n" << lineNum << " - " << _error << "\n" << std::endl;
+    std::cerr << lineNum << " - " << _error << std::endl;
     return false;
 }
 
