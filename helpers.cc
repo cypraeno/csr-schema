@@ -34,7 +34,7 @@ bool getCSRLine(std::istream& _istream, std::string& _line) {
 
     output = "";
 
-    while(isComment(output) || !output.size()) {
+    while(isComment(output) || output.empty()) {
         std::getline(_istream, _output);
         output = trim(_output);
     }
