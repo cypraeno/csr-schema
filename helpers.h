@@ -66,4 +66,6 @@ bool isId(const std::string& _line, std::string& _id);
  */
 bool getCSRLine(std::istream& _istream, std::string& _line);
 
+bool parseVersion(std::ifstream& file, std::string& versionLine);
+
 #endif

@@ -4,17 +4,6 @@
 #include "material_validator.h"
 #include "primitive_validator.h"
 
-bool parseVersion(std::ifstream& file, std::string& versionLine) {
-    std::string line;
-    while (std::getline(file, line)) {
-        line = trim(line);
-        if (isComment(line) || line.empty()) continue;
-        versionLine = line;
-        break;
-    }
-    return !versionLine.empty();
-}
-
 int main(int argc, char** argv) {
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <CSR_File_Path>" << std::endl;
@@ -36,7 +25,7 @@ int main(int argc, char** argv) {
 
     std::string line;
 
-    if (!std::getline(csrFile, line) || line != "Camera") return 1;
+    if (!getCSRLine(csrFile, line) || line != "Camera") return 1;
     if (!isCamera(csrFile)) return 2;
 
     std::vector<std::string> materials;
@@ -44,9 +33,7 @@ int main(int argc, char** argv) {
     // std::vector<std::string> primitives;         USE IN FUTURE IF PRIMITIVES CAN BE ASSIGNED TO MESHES
 
     // EDGE CASE: if the user names a Material as Material[Texture]
-    while(std::getline(csrFile, line)) {
-
-        if (isComment(line)) continue;
+    while(getCSRLine(csrFile, line)) {
 
         if (line.find("Texture") != std::string::npos) {
 
@@ -86,9 +73,13 @@ int main(int argc, char** argv) {
 
         if (trim(line) == "Sphere" && !isSphere(csrFile, materials)) return 2;
 
+        else {
+            std::cerr << "Error: Invalid Line" << std::endl;
+            return 2;
+        }
     }
 
-    std::cout << "CSR file validation passed." << std::endl;
+    std::cerr << "CSR file validation passed." << std::endl;
 
     return 0;
 }
