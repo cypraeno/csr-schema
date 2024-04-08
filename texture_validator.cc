@@ -21,7 +21,7 @@ bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std
     std::string _line, id;
 
     // Check for valid ID
-    if (!std::getline(_file, _line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, _line)) return outputError("Error: Unexpected EOF");
     if (!isId(_line, id)) return outputError("Error: Expected id");
     if (id == "no") return outputError("Error: 'no' is reserved");
 
@@ -40,19 +40,19 @@ bool isChecker(std::ifstream& _file) {
     std::istringstream iss;
 
     // Check for valid scale
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isDouble(iss, "scale", 0.0, P_INF)) return false;
 
     // Check for valid c1
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isXYZ(iss, "c1", 0.0, 255.0)) return false;
 
     // Check for valid c2
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isXYZ(iss, "c2", 0.0, 255.0)) return false;
@@ -67,7 +67,7 @@ bool isImage(std::ifstream& _file) {
     std::istringstream iss;
 
     // Check for valid path
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isFilePath(iss)) return false;

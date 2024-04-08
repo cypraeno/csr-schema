@@ -25,7 +25,7 @@ bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<s
     std::string line, id;
     
     // Check for valid ID
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     if (!isId(line, id)) return outputError("Error: Expected id");
 
     // Success
@@ -43,7 +43,7 @@ bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
     std::istringstream iss;
 
     // Check for valid IR
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     
     iss.str(line);
     if (!isDouble(iss, "ir", 1.0, P_INF)) return false;
@@ -58,13 +58,13 @@ bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
     std::istringstream iss;
 
     // Check for valid RGB
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isXYZ(iss, "rgb", 0.0, 255.0)) return false;
 
     // Check for valid strength
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isDouble(iss, "strength", 0.0, P_INF)) return false;
@@ -79,7 +79,7 @@ bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
     std::istringstream iss;
 
     // Check for valid texture
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!(iss >> keyword) || keyword != "texture") return outputError("Error: Expected texture");
@@ -92,7 +92,7 @@ bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
     }
 
     // Check for valid albedo
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
     if (!isXYZ(iss, "albedo", 0.0, 255.0)) return false;
 
@@ -106,13 +106,13 @@ bool isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
     std::istringstream iss;
 
     // Check for valid albedo
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isXYZ(iss, "albedo", 0.0, 255.0)) return false;
 
     // Check for valid fuzz
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!isDouble(iss, "fuzz", 0.0, P_INF)) return false;

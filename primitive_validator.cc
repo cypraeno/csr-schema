@@ -8,12 +8,12 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     std::istringstream iss;
     
     // Check for valid position
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
     if (!isXYZ(iss, "position", N_INF, P_INF)) return false;
 
     // Check for valid u
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
     if (!isXYZ(iss, "u", N_INF, P_INF)) return false;
 
@@ -23,7 +23,7 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     iss >> u.x >> u.y >> u.z;
     
     // Check for valid v
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
     if (!isXYZ(iss, "v", N_INF, P_INF)) return false;
 
@@ -36,7 +36,7 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     if (u.x*v.x + u.y*v.y + u.z*v.z != 0.0) return outputError("Error: uv not orthogonal");
 
     // Check for valid material
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!(iss >> keyword) || keyword != "material") return outputError("Error: Expected material");
@@ -58,12 +58,12 @@ bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials) {
     std::istringstream iss;
     
     // Check for valid position
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
     if (!isXYZ(iss, "position", N_INF, P_INF)) return false;
 
     // Check for valid material
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
 
     iss.str(line);
     if (!(iss >> keyword) || keyword != "material") return outputError("Error: Expected material");
@@ -76,7 +76,7 @@ bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials) {
     }
 
     // Check for valid radius
-    if (!std::getline(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     iss.str(line);
     if (!isDouble(iss, "radius", 0.0, P_INF)) return false;
 
