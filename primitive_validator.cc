@@ -9,7 +9,6 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     
     // Check for valid position
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    std::cerr << ss.str() << std::endl;
     if (!(ss << line) || !isXYZ(ss, "position", N_INF, P_INF)) return false;
 
     // Check for valid u
