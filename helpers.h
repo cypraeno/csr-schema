@@ -57,7 +57,7 @@ bool outputError(const std::string& _error);
 bool isId(const std::string& _line, std::string& _id);
 
 /**
- * @brief Builds on std::getline() to get the next non-empty and non-commented line
+ * @brief Gets the next non-empty and non-commented line trimmed
  * 
  * @param[in]   _istream the input stream
  * @param[out]  _line the string being written to
