@@ -45,10 +45,9 @@ std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
     return _istream;
 }
 
-bool parseVersion(std::ifstream& file, std::string& versionLine) {
-    std::string line;
-    if (getCSRLine(file, line)) versionLine = line;
-    return !versionLine.empty();
+bool parseVersion(std::ifstream& _file, std::string& _line, std::string& _versionLine) {
+    _versionLine = _line;
+    return !_versionLine.empty();
 }
 
 void resetsstream(std::stringstream& _ss) {

@@ -65,7 +65,7 @@ bool isId(const std::string& _line, std::string& _id);
  */
 std::istream& getCSRLine(std::istream& _istream, std::string& _line);
 
-bool parseVersion(std::ifstream& file, std::string& versionLine);
+bool parseVersion(std::ifstream& file, std::string& _line, std::string& versionLine);
 
 void resetsstream(std::stringstream& _ss);
 
