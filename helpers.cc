@@ -45,11 +45,6 @@ std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
     return _istream;
 }
 
-bool parseVersion(std::ifstream& _file, std::string& _line, std::string& _versionLine) {
-    _versionLine = _line;
-    return !_versionLine.empty();
-}
-
 void resetsstream(std::stringstream& _ss) {
     _ss.str(""); // Clear contents
     _ss.clear(); // Reset internal state flags

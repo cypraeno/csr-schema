@@ -51,22 +51,29 @@ bool outputError(const std::string& _error);
  * 
  * @param[in]   _line The line being validatted
  * @param[out]  _id   The id being assigned
+ * 
  * @return true if id is valid
  *         false otherwise
  */
 bool isId(const std::string& _line, std::string& _id);
 
 /**
- * @brief Gets the next non-empty and non-commented line trimmed
+ * @brief Gets the next line that is non-empty and not a comment, and trims it
  * 
  * @param[in]   _istream the input stream
  * @param[out]  _line the string being written to
+ * 
  * @return A reference to _istream
  */
 std::istream& getCSRLine(std::istream& _istream, std::string& _line);
 
-bool parseVersion(std::ifstream& file, std::string& _line, std::string& versionLine);
-
+/**
+ * @brief Resets a stringstream (wipes content ) so that it can be reused
+ * 
+ * @param[out] _ss the stringstream being reset
+ * 
+ * @note function should be called before more lines are appended to the stream
+ */
 void resetsstream(std::stringstream& _ss);
 
 #endif

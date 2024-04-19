@@ -83,6 +83,15 @@ bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
     return true;
 }
 
+bool isVersion(std::ifstream& _ss, std::string& _line, std::string& _versionLine) {
+
+    std::string word;
+    if (!(_ss >> word) || word != "version") return outputError("Error: Expected path");
+
+    _versionLine = _line;
+    return !_versionLine.empty();
+}
+
 bool isMember(std::stringstream& _ss, const std::string& _keyword, std::vector<std::string>& _members) {
 
     std::string word;
