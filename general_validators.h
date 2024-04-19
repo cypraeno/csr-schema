@@ -53,15 +53,14 @@ bool isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _mi
 bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max);
 
 /**
- * @brief 
+ * @brief Checks if a file line is a valid version
  * 
- * @param file 
- * @param _line 
- * @param versionLine 
- * @return true 
- * @return false 
+ * @param[in] _ss The line being evaluated
+ * 
+ * @return true if line is a valid version
+ *         false otherwise
  */
-bool isVersion(std::ifstream& file, std::string& _line, std::string& versionLine);
+bool isVersion(std::stringstream& _ss);
 
 // WIP need to consider abstraction when there is special cases (i.e. texture cannot have "no" as an id)
 // bool isMember(std::stringstream& _ss, const std::string& _keyword, std::vector<std::string>& _members);

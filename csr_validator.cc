@@ -18,13 +18,12 @@ int main(int argc, char** argv) {
 
     std::string line;
 
-    // Version must come first in the file.
-    std::string versionLine;
-    if (!getCSRLine(csrFile, line) || !parseVersion(csrFile, line, versionLine)) {
-        outputError("Error: Unsupported version or version line missing <<" + versionLine + ">>");
-        return 1;
-    }
+    // Check that the version is the first file line
+    std::stringstream ss;
+    if (!getCSRLine(csrFile, line)) return outputError("Error: Unexpected EOF");
+    if (!(ss << line) || !isVersion(ss)) return 1;
 
+    // Check that camera is defined after version but before everything else
     if (!getCSRLine(csrFile, line) || line != "Camera") {
         outputError("Error: Expected Camera");
         return 1;

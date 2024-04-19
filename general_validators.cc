@@ -83,13 +83,18 @@ bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
     return true;
 }
 
-bool isVersion(std::ifstream& _ss, std::string& _line, std::string& _versionLine) {
+bool isVersion(std::stringstream& _ss) {
 
     std::string word;
     if (!(_ss >> word) || word != "version") return outputError("Error: Expected path");
 
-    _versionLine = _line;
-    return !_versionLine.empty();
+    std::string version;
+    if (!(_ss >> version) || version.empty()) return outputError("Error: Unsupported version or version line missing <<" + version + ">>");
+
+    resetsstream(_ss);
+
+    // Success
+    return true;
 }
 
 bool isMember(std::stringstream& _ss, const std::string& _keyword, std::vector<std::string>& _members) {
