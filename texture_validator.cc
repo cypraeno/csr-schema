@@ -61,8 +61,9 @@ bool isImage(std::ifstream& _file) {
     std::stringstream ss;
 
     // Check for valid path
+    std::vector<std::string> fileTypes{ ".png", ".jpg"};
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isFilePath(ss)) return false;
+    if (!(ss << line) || !isFilePath(ss, fileTypes)) return false;
 
     // Success
     return true;
