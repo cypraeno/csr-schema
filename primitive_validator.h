@@ -9,6 +9,7 @@
  * 
  * @param[in] _file         The file being validated
  * @param[in] _materials    A vector of materials to be checked
+ * 
  * @return true if the quad is correctly formatted
  *         false otherwise
  */
@@ -19,6 +20,7 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials);
  * 
  * @param[in] _file         The file being validated
  * @param[in] _materials    A vector of materials to be checked
+ * 
  * @return true if the quad is correctly formatted
  *         false otherwise
  */
