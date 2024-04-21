@@ -23,10 +23,11 @@ bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<s
     if (matIt == materialValidatorMap.end()) outputError("Error: Unknown material type: " + _material_type);
 
     std::string line, id;
+    std::stringstream ss;
     
     // Check for valid ID
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!isId(line, id)) return outputError("Error: Expected id");
+    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
 
     // Success
     if (matIt->second(_file, _textures)) {

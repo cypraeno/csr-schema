@@ -18,11 +18,12 @@ bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std
     auto texIt = textureValidatorMap.find(_texture_type);
     if (texIt == textureValidatorMap.end()) outputError("Error: Unknown texture type: " + _texture_type);
 
-    std::string _line, id;
+    std::string line, id;
+    std::stringstream ss;
 
     // Check for valid ID
-    if (!getCSRLine(_file, _line)) return outputError("Error: Unexpected EOF");
-    if (!isId(_line, id)) return outputError("Error: Expected id");
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
     if (id == "no") return outputError("Error: 'no' is reserved");
 
     // Success
@@ -36,7 +37,7 @@ bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std
 
 bool isChecker(std::ifstream& _file) {
     
-    std::string line, keyword;
+    std::string line;
     std::stringstream ss;
 
     // Check for valid scale
@@ -57,7 +58,7 @@ bool isChecker(std::ifstream& _file) {
 
 bool isImage(std::ifstream& _file) {
 
-    std::string line, keyword;
+    std::string line;
     std::stringstream ss;
 
     // Check for valid path
