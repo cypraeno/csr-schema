@@ -1,4 +1,4 @@
-#include "camera_validator.h"
+#include "camera_validator.hh"
 
 bool isCamera(std::ifstream& _file) {
 

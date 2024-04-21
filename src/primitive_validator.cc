@@ -1,4 +1,4 @@
-#include "primitive_validator.h"
+#include "primitive_validator.hh"
 
 struct vec3 { double x, y, z; };
 

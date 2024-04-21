@@ -1,4 +1,4 @@
-#include "texture_validator.h"
+#include "texture_validator.hh"
 
 using textureValidatorFunction = std::function<bool(std::ifstream&)>;
 

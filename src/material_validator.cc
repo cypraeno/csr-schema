@@ -1,4 +1,4 @@
-#include "material_validator.h"
+#include "material_validator.hh"
 
 using materialValidatorFunction = std::function<bool(std::ifstream&, std::vector<std::string>&)>;
 
