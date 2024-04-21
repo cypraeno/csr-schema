@@ -1,8 +1,8 @@
-#include "helpers.h"
-#include "camera_validator.h"
-#include "texture_validator.h"
-#include "material_validator.h"
-#include "primitive_validator.h"
+#include "helpers.hh"
+#include "camera_validator.hh"
+#include "texture_validator.hh"
+#include "material_validator.hh"
+#include "primitive_validator.hh"
 
 int main(int argc, char** argv) {
     if (argc < 2) {

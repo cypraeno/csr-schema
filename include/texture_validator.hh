@@ -1,8 +1,8 @@
 #ifndef TEX_VALIDATOR
 #define TEX_VALIDATOR
 
-#include "helpers.h"
-#include "general_validators.h"
+#include "helpers.hh"
+#include "general_validators.hh"
 
 /**
  * @brief Checks if a file section starting with "Texture" is a validly formatted .csr texture

@@ -1,8 +1,8 @@
 #ifndef MAT_VALIDATOR
 #define MAT_VALIDATOR
 
-#include "helpers.h"
-#include "general_validators.h"
+#include "helpers.hh"
+#include "general_validators.hh"
 
 /**
  * @brief Checks if a file section starting with "Material" is a validly formatted .csr material

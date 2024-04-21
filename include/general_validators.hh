@@ -1,7 +1,7 @@
 #ifndef GEN_VALIDATOR
 #define GEN_VALIDATOR
 
-#include "helpers.h"
+#include "helpers.hh"
 #include <experimental/filesystem>
 
 /**

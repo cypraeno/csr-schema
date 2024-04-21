@@ -1,8 +1,8 @@
 #ifndef PRI_VALIDATOR
 #define PRI_VALIDATOR
 
-#include "helpers.h"
-#include "general_validators.h"
+#include "helpers.hh"
+#include "general_validators.hh"
 
 /**
  * @brief Checks if a file section starting with "Quad" is a validly formatted .csr quad

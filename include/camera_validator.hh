@@ -1,8 +1,8 @@
 #ifndef CAM_VALIDATOR
 #define CAM_VALIDATOR
 
-#include "helpers.h"
-#include "general_validators.h"
+#include "helpers.hh"
+#include "general_validators.hh"
 
 /**
  * @brief Checks if file camera is valdily formatted
