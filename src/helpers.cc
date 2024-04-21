@@ -24,13 +24,6 @@ bool outputError(const std::string& _error) {
     return false;
 }
 
-bool isId(const std::string& _line, std::string& _id) {
-    std::string line = trim(_line);
-    if (line.substr(0, 2) != "id") return false;
-    _id = line.substr(3);
-    return true;
-}
-
 std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
     std::string _output, output;
 

@@ -2,6 +2,23 @@
 
 namespace fs = std::experimental::filesystem;
 
+bool isId(std::stringstream& _ss, std::string& _id) {
+
+    std::string word;
+    if (!(_ss >> word) || word != "id") return outputError("Error: Expected id");
+
+    std::string id;
+    if (!(_ss >> id)) return outputError("Error: Missing id value");
+    
+    // Assign valid ID to _id
+    _id = id;
+
+    resetsstream(_ss);
+
+    // Success
+    return true;
+}
+
 bool isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTypes) {
 
     std::string word;
@@ -86,10 +103,10 @@ bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
 bool isVersion(std::stringstream& _ss) {
 
     std::string word;
-    if (!(_ss >> word) || word != "version") return outputError("Error: Expected path");
+    if (!(_ss >> word) || word != "version") return outputError("Error: Expected version");
 
     std::string version;
-    if (!(_ss >> version) || version.empty()) return outputError("Error: Unsupported version or version line missing <<" + version + ">>");
+    if (!(_ss >> version) || version.empty() || version != "0.1.3") return outputError("Error: Unsupported version or version line missing <<" + version + ">>");
 
     resetsstream(_ss);
 

@@ -5,6 +5,17 @@
 #include <experimental/filesystem>
 
 /**
+ * @brief Checks if a file line is a valid id, and assign the id if it is
+ * 
+ * @param[in]   _ss   The line being evaluated
+ * @param[out]  _id   The id being assigned
+ * 
+ * @return true if id is valid
+ *         false otherwise
+ */
+bool isId(std::stringstream& _ss, std::string& _id);
+
+/**
  * @brief Checks if a file line is a valid CSR file path of one of the specified file types
  * 
  * @param[in] _ss           The line being evaluated

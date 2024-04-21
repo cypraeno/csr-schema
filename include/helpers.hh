@@ -47,17 +47,6 @@ bool isComment(const std::string& _line);
 bool outputError(const std::string& _error);
 
 /**
- * @brief Wrapper function to check if a line is a valid id, and assign the id if it is
- * 
- * @param[in]   _line The line being validatted
- * @param[out]  _id   The id being assigned
- * 
- * @return true if id is valid
- *         false otherwise
- */
-bool isId(const std::string& _line, std::string& _id);
-
-/**
  * @brief Gets the next line that is non-empty and not a comment, and trims it
  * 
  * @param[in]   _istream the input stream
