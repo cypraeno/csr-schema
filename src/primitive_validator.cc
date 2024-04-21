@@ -2,7 +2,7 @@
 
 struct vec3 { double x, y, z; };
 
-bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
+bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _quads) {
     
     std::string line, keyword;
     std::stringstream ss;
@@ -10,6 +10,11 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     // Check for valid position
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
     if (!(ss << line) || !isXYZ(ss, "position", N_INF, P_INF)) return false;
+
+    // Check for valid ID
+    std::string id;
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
 
     // Check for valid u
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
@@ -44,13 +49,19 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials) {
     resetsstream(ss);
 
     // Success
+    _quads.push_back(id);
     return true;
 }
 
-bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials) {
+bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _spheres) {
 
     std::string line, keyword;
     std::stringstream ss;
+
+    // Check for valid ID
+    std::string id;
+    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
+    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
     
     // Check for valid position
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
@@ -72,5 +83,6 @@ bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials) {
     if (!(ss << line) || !isDouble(ss, "radius", 0.0, P_INF)) return false;
 
     // Success
+    _spheres.push_back(id);
     return true;
 }

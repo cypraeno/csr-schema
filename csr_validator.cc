@@ -32,7 +32,8 @@ int main(int argc, char** argv) {
 
     std::vector<std::string> materials;
     std::vector<std::string> textures;
-    // std::vector<std::string> primitives;         USE IN FUTURE IF PRIMITIVES CAN BE ASSIGNED TO MESHES
+    std::vector<std::string> quads;
+    std::vector<std::string> spheres;
 
     // EDGE CASE: if the user names a Material as Material[Texture]
     while(getCSRLine(csrFile, line)) {
@@ -72,11 +73,11 @@ int main(int argc, char** argv) {
         }
 
         else if (line == "Quad") { 
-            if (!isQuad(csrFile, materials)) return 2; 
+            if (!isQuad(csrFile, materials, quads)) return 2; 
         }
 
         else if (line == "Sphere") { 
-            if (!isSphere(csrFile, materials)) return 2; 
+            if (!isSphere(csrFile, materials, spheres)) return 2; 
         }
 
         else {
