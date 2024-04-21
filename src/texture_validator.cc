@@ -12,18 +12,18 @@ std::map<std::string, textureValidatorFunction> textureValidatorMap {
     { "[Image]", isImage },
 };
 
-bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std::string>& _textures) {
+bool isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std::string>& _textures) {
 
     // Check for valid texture type
-    auto texIt = textureValidatorMap.find(_texture_type);
-    if (texIt == textureValidatorMap.end()) outputError("Error: Unknown texture type: " + _texture_type);
+    auto texIt = textureValidatorMap.find(_textureType);
+    if (texIt == textureValidatorMap.end()) outputError("Error: Unknown texture type: " + _textureType);
 
     std::string line, id;
     std::stringstream ss;
 
     // Check for valid ID
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
+    if (!(ss << line) || !isId(ss, _textures, id)) return outputError("Error: Expected id");
     if (id == "no") return outputError("Error: 'no' is reserved");
 
     // Success

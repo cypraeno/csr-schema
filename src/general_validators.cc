@@ -2,20 +2,20 @@
 
 namespace fs = std::experimental::filesystem;
 
-bool isId(std::stringstream& _ss, std::string& _id) {
+bool isId(std::stringstream& _ss, const std::vector<std::string>& _ids, std::string& _id) {
 
     std::string word;
     if (!(_ss >> word) || word != "id") return outputError("Error: Expected id");
 
     std::string id;
     if (!(_ss >> id)) return outputError("Error: Missing id value");
+
+    auto it = std::find(_ids.begin(), _ids.end(), id);
+    if (it != _ids.end()) return outputError("Error: id already exists");
     
-    // Assign valid ID to _id
-    _id = id;
-
-    resetsstream(_ss);
-
     // Success
+    _id = id;
+    resetsstream(_ss);
     return true;
 }
 

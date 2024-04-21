@@ -27,7 +27,7 @@ bool isMaterial(std::ifstream& _file, std::string& _material_type, std::vector<s
     
     // Check for valid ID
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
+    if (!(ss << line) || !isId(ss, _materials, id)) return outputError("Error: Expected id");
 
     // Success
     if (matIt->second(_file, _textures)) {

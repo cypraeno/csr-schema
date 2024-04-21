@@ -14,7 +14,7 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vec
     // Check for valid ID
     std::string id;
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
+    if (!(ss << line) || !isId(ss, _quads, id)) return outputError("Error: Expected id");
 
     // Check for valid u
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
@@ -61,7 +61,7 @@ bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::v
     // Check for valid ID
     std::string id;
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isId(ss, id)) return outputError("Error: Expected id");
+    if (!(ss << line) || !isId(ss, _spheres, id)) return outputError("Error: Expected id");
     
     // Check for valid position
     if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
