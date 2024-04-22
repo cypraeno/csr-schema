@@ -25,17 +25,28 @@ void outputError(const std::string& _error);
 /**
  * @brief Gets the next line that is non-empty and not a comment, and trims it
  * 
- * @param[in]   _istream the input stream
- * @param[out]  _line the string being written to
+ * @param[in]   _istream    The input stream
+ * @param[out]  _line       The string being written to
  * 
  * @return A reference to _istream
  */
 std::istream& getCSRLine(std::istream& _istream, std::string& _line);
 
 /**
+ * @brief Gets the [type] from a header
+ * 
+ * @param[in]   _header The string from which the type is extracted 
+ * 
+ * @return The header type
+ * 
+ * @note The type is the text between "[]". "Material[Lambertian]" has "Lambertian" as its type
+ */
+std::string& getType(const std::string& _header);
+
+/**
  * @brief Resets a stringstream (wipes content ) so that it can be reused
  * 
- * @param[out] _ss the stringstream being reset
+ * @param[out] _ss The stringstream being reset
  * 
  * @note function should be called before more lines are appended to the stream
  */
