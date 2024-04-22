@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.26) # Required
 
-project(CSRValidator VERSION 0.1.0)
+project(CSRValidator VERSION 0.1.3)
 set(CMAKE_BUILD_TYPE Debug)
 
 file(GLOB_RECURSE SOURCES "*.cc")
@@ -12,6 +12,9 @@ target_compile_features(csr_validator PUBLIC cxx_std_11) # Set the C++ standard 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2") # Set the optimization level to -O2
 
 target_include_directories(csr_validator PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# Link against the filesystem library
+target_link_libraries(csr_validator PRIVATE stdc++fs)
 
 # Instructions
 # Create build files:
