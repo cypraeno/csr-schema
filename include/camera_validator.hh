@@ -7,11 +7,10 @@
 /**
  * @brief Checks if file camera is valdily formatted
  * 
- * @param[in]   _file The file being validated
+ * @param[in]   _file   The file being validated
  * 
- * @return true if the camera is correctly formatted
- *         false otherwise
+ * @note throws std::invalid_arguemnt error if camera is invalid
  */
-bool isCamera(std::ifstream& _file);
+void isCamera(std::ifstream& _file);
 
 #endif

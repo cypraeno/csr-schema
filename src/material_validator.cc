@@ -1,12 +1,12 @@
 #include "material_validator.hh"
 
-using materialValidatorFunction = std::function<bool(std::ifstream&, std::vector<std::string>&)>;
+using materialValidatorFunction = std::function<void(std::ifstream&, std::vector<std::string>&)>;
 
 // Forward declarations
-bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures);
-bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures);
-bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures);
-bool isMetal(std::ifstream& _file, std::vector<std::string>& _textures);
+void isDielectric(std::ifstream& _file, std::vector<std::string>& _textures);
+void isEmissive(std::ifstream& _file, std::vector<std::string>& _textures);
+void isLambertian(std::ifstream& _file, std::vector<std::string>& _textures);
+void isMetal(std::ifstream& _file, std::vector<std::string>& _textures);
 
 // UPDATE this list as new materials are defined
 std::map<std::string, materialValidatorFunction> materialValidatorMap {
@@ -16,7 +16,7 @@ std::map<std::string, materialValidatorFunction> materialValidatorMap {
     { "[Metal]", isMetal },
 };
 
-bool isMaterial(std::ifstream& _file, std::string& _materialType, std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isMaterial(std::ifstream& _file, std::string& _materialType, std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
 
     // Check for valid material type
     auto matIt = materialValidatorMap.find(_materialType);
@@ -29,16 +29,14 @@ bool isMaterial(std::ifstream& _file, std::string& _materialType, std::vector<st
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     if (isMember(ss, "id", _materials, id)) outputError("Error: material id taken");
 
-    // Success
-    if (matIt->second(_file, _textures)) {
-        _materials.push_back(id);
-        return true;
-    }
+    // Check specific material type
+    matIt->second(_file, _textures);
 
-    return false;
+    // Success
+    _materials.push_back(id);
 }
 
-bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
     
     std::string line;
     std::stringstream ss;
@@ -46,12 +44,9 @@ bool isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
     // Check for valid IR
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     isDouble(ss, "ir", 1.0, P_INF);
-
-    // Success
-    return true;
 }
 
-bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
 
     std::string line;
     std::stringstream ss;
@@ -63,12 +58,9 @@ bool isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
     // Check for valid strength
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     isDouble(ss, "strength", 0.0, P_INF);
-
-    // Success
-    return true;
 }
 
-bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
 
     std::string line;
     std::stringstream ss;
@@ -81,12 +73,9 @@ bool isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
     // Check for valid albedo
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     isXYZ(ss, "albedo", 0.0, 255.0);
-
-    // Success
-    return true;
 }
 
-bool isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
 
     std::string line;
     std::stringstream ss;
@@ -98,7 +87,4 @@ bool isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
     // Check for valid fuzz
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     isDouble(ss, "fuzz", 0.0, P_INF);
-
-    // Success
-    return true;
 }

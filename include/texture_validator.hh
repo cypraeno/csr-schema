@@ -11,9 +11,8 @@
  * @param[in]   _material_type    the type of texture being validated
  * @param[out]  _textures         a vector of textures to be updated if the texture is valid
  * 
- * @return true if the texture is correctly formatted 
- *         false otherwise
+ * @note throws std::invalid_arguemnt error if texture is invalid
  */
-bool isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std::string>& _textures);
+void isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std::string>& _textures);
 
 #endif

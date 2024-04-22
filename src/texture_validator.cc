@@ -1,10 +1,10 @@
 #include "texture_validator.hh"
 
-using textureValidatorFunction = std::function<bool(std::ifstream&)>;
+using textureValidatorFunction = std::function<void(std::ifstream&)>;
 
 // Forward declarations
-bool isChecker(std::ifstream& _file);
-bool isImage(std::ifstream& _file);
+void isChecker(std::ifstream& _file);
+void isImage(std::ifstream& _file);
 
 // UPDATE this list as new materials are defined
 std::map<std::string, textureValidatorFunction> textureValidatorMap {
@@ -12,7 +12,7 @@ std::map<std::string, textureValidatorFunction> textureValidatorMap {
     { "[Image]", isImage },
 };
 
-bool isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std::string>& _textures) {
+void isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std::string>& _textures) {
 
     // Check for valid texture type
     auto texIt = textureValidatorMap.find(_textureType);
@@ -26,16 +26,14 @@ bool isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std:
     if (isMember(ss, "id", _textures, id)) outputError("Error: texture id taken");
     if (id == "no") outputError("Error: 'no' is reserved");
 
+    // Check specific texture type
+    texIt->second(_file);
+
     // Success
-    if (texIt->second(_file)) {
-        _textures.push_back(id);
-        return true;
-    }
-    
-    return false;
+    _textures.push_back(id);
 }
 
-bool isChecker(std::ifstream& _file) {
+void isChecker(std::ifstream& _file) {
     
     std::string line;
     std::stringstream ss;
@@ -51,12 +49,9 @@ bool isChecker(std::ifstream& _file) {
     // Check for valid c2
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     isXYZ(ss, "c2", 0.0, 255.0);
-
-    // Success
-    return true;
 }
 
-bool isImage(std::ifstream& _file) {
+void isImage(std::ifstream& _file) {
 
     std::string line;
     std::stringstream ss;
@@ -65,7 +60,4 @@ bool isImage(std::ifstream& _file) {
     std::vector<std::string> fileTypes{ ".png", ".jpg" };
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     isFilePath(ss, fileTypes);
-
-    // Success
-    return true;
 }

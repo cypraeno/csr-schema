@@ -1,6 +1,6 @@
 #include "camera_validator.hh"
 
-bool isCamera(std::ifstream& _file) {
+void isCamera(std::ifstream& _file) {
 
     std::string line;
     std::stringstream ss;
@@ -32,7 +32,4 @@ bool isCamera(std::ifstream& _file) {
     // Check for valid focus dist
     if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
     isDouble(ss, "focus_dist", N_INF, P_INF);
-
-    // Success
-    return true;
 }

@@ -2,7 +2,7 @@
 
 namespace fs = std::experimental::filesystem;
 
-bool isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTypes) {
+void isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTypes) {
 
     std::string word;
     if (!(_ss >> word) || word != "path") outputError("Error: Expected path");
@@ -30,12 +30,9 @@ bool isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTyp
     if (!validFileType) outputError("Error: Invalid file type");
 
     resetsstream(_ss);
-
-    // Success
-    return validFileType; 
 }
 
-bool isDouble(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
+void isDouble(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
     
     std::string word;
     if (!(_ss >> word) || word != _keyword) outputError("Error: Expected " + _keyword);
@@ -45,12 +42,9 @@ bool isDouble(std::stringstream& _ss, const std::string& _keyword, const double 
     if (value < _min || _max < value) outputError("Error: Value not in range");
 
     resetsstream(_ss);
-
-    // Success
-    return true;
 }
 
-bool isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
+void isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
 
     std::string word;
     if (!(_ss >> word) || word != _keyword) outputError("Error: Expected " + _keyword);
@@ -62,12 +56,9 @@ bool isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _mi
     if (z < _min || _max < z) outputError("Error: Third value not in range");
 
     resetsstream(_ss);
-
-    // Success
-    return true;
 }
 
-bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
+void isRatio(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max) {
 
     std::string word;
     if (!(_ss >> word) || word != _keyword) outputError("Error: Expected " + _keyword);
@@ -80,9 +71,6 @@ bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
     if (x / y < _min || _max < x / y) outputError("Error: Ratio not in range");
 
     resetsstream(_ss);
-
-    // No Errors
-    return true;
 }
 
 bool isVersion(std::stringstream& _ss) {

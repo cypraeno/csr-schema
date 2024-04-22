@@ -39,9 +39,9 @@ std::string trim(const std::string& _str);
 bool isComment(const std::string& _line);
 
 /**
- * @brief Wrapper function that throws the error passed through
+ * @brief Wrapper function that throws the error passed through as an std::invalid_arguement error
  * 
- * @param[in] _error The error string to be output in std::err stream
+ * @param[in] _error The error string to be thrown
  */
 void outputError(const std::string& _error);
 

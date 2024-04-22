@@ -10,11 +10,9 @@
  * @param[in] _ss           The line being evaluated
  * @param[in] _fileTypes    The list of valid file types
  * 
- * @return true if the string is a valid file path and type
- *         false otherwise
- * 
+ * @note throws std::invalid_arguemnt error if file path is invalid
  */
-bool isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTypes);
+void isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTypes);
 
 /**
  * @brief Checks if a file line is a valid double between min and max
@@ -23,10 +21,9 @@ bool isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTyp
  * @param[in] _keyword      The keyword that the line must start with
  * @param[in] _min, _max    The min and max of the double
  * 
- * @return true if line is a valid double between min and max
- *         false otherwise
+ * @note throws std::invalid_arguemnt error if double is invalid
  */
-bool isDouble(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max);
+void isDouble(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max);
 
 /**
  * @brief Checks if a file line is a set of three valid doubles between min and max
@@ -35,10 +32,9 @@ bool isDouble(std::stringstream& _ss, const std::string& _keyword, const double 
  * @param[in] _keyword      The keyword that the line must start with
  * @param[in] _min, _max    The min and max of the doubles
  * 
- * @return true if line is a set of three valid doubles between min and max
- *         false otherwise
+ * @note throws std::invalid_arguemnt error if set of three doubles is invalid
  */
-bool isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max);
+void isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max);
 
 /**
  * @brief Checks if a file line is a valid ratio that has a value between min and max
@@ -47,10 +43,9 @@ bool isXYZ(std::stringstream& _ss, const std::string& _keyword, const double _mi
  * @param[in] _keyword      The keyword that the line must start with
  * @param[in] _min, _max    The min and max of the ratio
  * 
- * @return true if line is a valid ratio between min and max (e.g. 16/9)
- *         false otherwise
+ * @note throws std::invalid_arguemnt error if ratio is invalid
  */
-bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max);
+void isRatio(std::stringstream& _ss, const std::string& _keyword, const double _min, const double _max);
 
 /**
  * @brief Checks if a file line is a valid version
@@ -58,20 +53,22 @@ bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
  * @param[in] _ss The line being evaluated
  * 
  * @return true if line is a valid version
- *         false otherwise
+ * 
+ * @note throws std::invalid_arguemnt error if version is incorrectly formatted
  */
 bool isVersion(std::stringstream& _ss);
 
 /**
- * @brief Checks if a file line contains a member of the provided vector, and assigns _member that value whether it is/is not
+ * @brief Checks if a file line contains a member of the provided vector, and assigns _member that value
  * 
  * @param[in]   _ss         The line being evaluated
  * @param[in]   _keyword    The keyword that the line must start with
  * @param[in]   _members    The vector of members to be checked against
  * @param[out]  _member     The string to assign the member to
  * 
- * @return true if line is a valid member
- *         false otherwise 
+ * @return true if line member belongs to _members
+ * 
+ * @note throws std::invalid_arguemnt error if member is incorrectly formatted
  */
 bool isMember(std::stringstream& _ss, const std::string& _keyword, const std::vector<std::string>& _members, std::string& _member);
 

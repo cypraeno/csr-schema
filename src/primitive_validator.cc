@@ -5,7 +5,7 @@ struct vec3 {
     double x, y, z; 
 };
 
-bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _quads) {
+void isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _quads) {
     
     std::string line;
     std::stringstream ss;
@@ -47,10 +47,9 @@ bool isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vec
 
     // Success
     _quads.push_back(id);
-    return true;
 }
 
-bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _spheres) {
+void isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _spheres) {
 
     std::string line, keyword;
     std::stringstream ss;
@@ -77,5 +76,4 @@ bool isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::v
 
     // Success
     _spheres.push_back(id);
-    return true;
 }
