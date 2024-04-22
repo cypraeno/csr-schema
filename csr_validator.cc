@@ -30,13 +30,14 @@ int main(int argc, char** argv) {
     while(getCSRLine(csrFile, line)) {
 
         if (line.find("Texture") != std::string::npos) {
-
-            std::string texture_type = getType(line);
+            std::string texture_type;
+            getType(line, texture_type);
             isTexture(csrFile, texture_type, textures);
         }
 
         else if (line.find("Material") != std::string::npos) {
-            std::string material_type = getType(line);
+            std::string material_type;
+            getType(line, material_type);
             isMaterial(csrFile, material_type, textures, materials);  
         }
 

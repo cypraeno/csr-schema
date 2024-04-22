@@ -36,12 +36,11 @@ std::istream& getCSRLine(std::istream& _istream, std::string& _line);
  * @brief Gets the [type] from a header
  * 
  * @param[in]   _header The string from which the type is extracted 
- * 
- * @return The header type
+ * @param[out]  _type   The string to assign the type to
  * 
  * @note The type is the text between "[]". "Material[Lambertian]" has "Lambertian" as its type
  */
-std::string& getType(const std::string& _header);
+ void getType(const std::string& _header, std::string& _type);
 
 /**
  * @brief Resets a stringstream (wipes content ) so that it can be reused
