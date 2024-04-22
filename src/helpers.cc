@@ -39,10 +39,10 @@ std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
 
 std::string& getType(const std::string& _header) {
     size_t start_pos = _header.find_first_of('[');
-    if (start_pos == std::string::npos) outputError("Error: Material type indicator <<[>> missing");
+    if (start_pos == std::string::npos) outputError("Error: type indicator <<[>> missing");
 
     size_t end_pos = _header.find_first_of(']', start_pos);
-    if (end_pos == std::string::npos) outputError("Error: Material type indicator <<]>> missing");
+    if (end_pos == std::string::npos) outputError("Error: type indicator <<]>> missing");
 
     std::string type = _header.substr(start_pos, end_pos - start_pos + 1);
     return type;
