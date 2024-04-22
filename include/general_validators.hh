@@ -5,18 +5,6 @@
 #include <experimental/filesystem>
 
 /**
- * @brief Checks if a file line is a valid id, and assign the id if it is
- * 
- * @param[in]   _ss     The line being evaluated
- * @param[in]   _ids    The vector of IDs that have already been takens
- * @param[out]  _id     The id being assigned
- * 
- * @return true if id is valid
- *         false otherwise
- */
-bool isId(std::stringstream& _ss, std::vector<std::string>& _ids, std::string& _id);
-
-/**
  * @brief Checks if a file line is a valid CSR file path of one of the specified file types
  * 
  * @param[in] _ss           The line being evaluated
@@ -74,7 +62,17 @@ bool isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
  */
 bool isVersion(std::stringstream& _ss);
 
-// WIP need to consider abstraction when there is special cases (i.e. texture cannot have "no" as an id)
-// bool isMember(std::stringstream& _ss, const std::string& _keyword, std::vector<std::string>& _members);
+/**
+ * @brief Checks if a file line contains a member of the provided vector, and assigns _member that value whether it is/is not
+ * 
+ * @param[in]   _ss         The line being evaluated
+ * @param[in]   _keyword    The keyword that the line must start with
+ * @param[in]   _members    The vector of members to be checked against
+ * @param[out]  _member     The string to assign the member to
+ * 
+ * @return true if line is a valid member
+ *         false otherwise 
+ */
+bool isMember(std::stringstream& _ss, const std::string& _keyword, const std::vector<std::string>& _members, std::string& _member);
 
 #endif
