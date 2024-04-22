@@ -95,5 +95,5 @@ bool isMember(std::stringstream& _ss, const std::string& _keyword, const std::ve
 
     // No Errors
     const auto it = std::find(_members.begin(), _members.end(), _member);
-    return it == _members.end();
+    return it != _members.end();
 }

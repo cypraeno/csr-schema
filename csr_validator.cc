@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     isCamera(csrFile);
 
     std::vector<std::string> materials;
-    std::vector<std::string> textures;
+    std::vector<std::string> textures{ "no" };
     std::vector<std::string> quads;
     std::vector<std::string> spheres;
 
