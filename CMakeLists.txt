@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.26) # Required
 project(CSRValidator VERSION 0.1.3)
 set(CMAKE_BUILD_TYPE Debug)
 
-file(GLOB_RECURSE SOURCES "*.cc")
 file(GLOB_RECURSE SRC_FOLDER "src/*.cc")
 list(APPEND SOURCES ${SRC_FOLDER})
 add_executable(csr_validator ${SOURCES}) # Required
