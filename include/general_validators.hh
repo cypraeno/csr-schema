@@ -52,11 +52,9 @@ void isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
  * 
  * @param[in] _ss The line being evaluated
  * 
- * @return true if line is a valid version
- * 
- * @note throws std::invalid_arguemnt error if version is incorrectly formatted
+ * @note throws std::invalid_arguemnt error if version is invalid
  */
-bool isVersion(std::stringstream& _ss);
+void isVersion(std::stringstream& _ss, const std::string& _version);
 
 /**
  * @brief Checks if a file line contains a member of the provided vector, and assigns _member that value

@@ -73,18 +73,16 @@ void isRatio(std::stringstream& _ss, const std::string& _keyword, const double _
     resetsstream(_ss);
 }
 
-bool isVersion(std::stringstream& _ss) {
+void isVersion(std::stringstream& _ss, const std::string& _version) {
 
     std::string word;
     if (!(_ss >> word) || word != "version") outputError("Error: Expected version");
 
     std::string version;
     if (!(_ss >> version) || version.empty()) outputError("Error: No version found");
+    if (version != _version) outputError("Error: Unsupported version <<" + version + ">>. Must use <<" + _version + ">>");
 
     resetsstream(_ss);
-
-    // No Errors
-    return version != "0.1.3";
 }
 
 bool isMember(std::stringstream& _ss, const std::string& _keyword, const std::vector<std::string>& _members, std::string& _member) {
@@ -98,3 +96,4 @@ bool isMember(std::stringstream& _ss, const std::string& _keyword, const std::ve
     // No Errors
     const auto it = std::find(_members.begin(), _members.end(), _member);
     return it == _members.end();
+}
