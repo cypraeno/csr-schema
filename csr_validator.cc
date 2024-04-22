@@ -5,16 +5,11 @@
 #include "primitive_validator.hh"
 
 int main(int argc, char** argv) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <CSR_File_Path>" << std::endl;
-        return 1;
-    }
+
+    if (argc < 2) outputError("Usage: " + std::string(argv[0]) + " <CSR_File_Path>");
 
     std::ifstream csrFile(argv[1]);
-    if (!csrFile.is_open()) {
-        std::cerr << "Failed to open file: " << argv[1] << std::endl;
-        return 1;
-    }
+    if (!csrFile.is_open()) outputError("Error: Failed to open file: " + std::string(argv[1]));
 
     std::string line;
 
