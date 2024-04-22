@@ -20,8 +20,8 @@ int main(int argc, char** argv) {
 
     // Check that the version is the first file line
     std::stringstream ss;
-    if (!getCSRLine(csrFile, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isVersion(ss)) return 1;
+    if (!getCSRLine(csrFile, line) || !(ss << line)) outputError("Error: Unexpected EOF");
+    if (!isVersion(ss)) return 1;
 
     // Check that camera is defined after version but before everything else
     if (!getCSRLine(csrFile, line) || line != "Camera") {
@@ -35,7 +35,6 @@ int main(int argc, char** argv) {
     std::vector<std::string> quads;
     std::vector<std::string> spheres;
 
-    // EDGE CASE: if the user names a Material as Material[Texture]
     while(getCSRLine(csrFile, line)) {
 
         if (line.find("Texture") != std::string::npos) {

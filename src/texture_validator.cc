@@ -22,9 +22,9 @@ bool isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std:
     std::stringstream ss;
 
     // Check for valid ID
-    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isId(ss, _textures, id)) return outputError("Error: Expected id");
-    if (id == "no") return outputError("Error: 'no' is reserved");
+    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
+    if (isMember(ss, "id", _textures, id)) outputError("Error: texture id taken");
+    if (id == "no") outputError("Error: 'no' is reserved");
 
     // Success
     if (texIt->second(_file)) {
@@ -41,16 +41,16 @@ bool isChecker(std::ifstream& _file) {
     std::stringstream ss;
 
     // Check for valid scale
-    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isDouble(ss, "scale", 0.0, P_INF)) return false;
+    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
+    isDouble(ss, "scale", 0.0, P_INF);
 
     // Check for valid c1
-    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isXYZ(ss, "c1", 0.0, 255.0)) return false;
+    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
+    isXYZ(ss, "c1", 0.0, 255.0);
 
     // Check for valid c2
-    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isXYZ(ss, "c2", 0.0, 255.0)) return false;
+    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
+    isXYZ(ss, "c2", 0.0, 255.0);
 
     // Success
     return true;
@@ -62,9 +62,9 @@ bool isImage(std::ifstream& _file) {
     std::stringstream ss;
 
     // Check for valid path
-    std::vector<std::string> fileTypes{ ".png", ".jpg"};
-    if (!getCSRLine(_file, line)) return outputError("Error: Unexpected EOF");
-    if (!(ss << line) || !isFilePath(ss, fileTypes)) return false;
+    std::vector<std::string> fileTypes{ ".png", ".jpg" };
+    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF");
+    isFilePath(ss, fileTypes);
 
     // Success
     return true;
