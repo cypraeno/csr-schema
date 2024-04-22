@@ -19,9 +19,8 @@ bool isComment(const std::string& _line) {
     return false;
 }
 
-bool outputError(const std::string& _error) {
-    std::cerr << lineNum << " - " << _error << std::endl;
-    return false;
+void outputError(const std::string& _error) {
+    throw std::invalid_argument(lineNum + " - " + _error);
 }
 
 std::istream& getCSRLine(std::istream& _istream, std::string& _line) {

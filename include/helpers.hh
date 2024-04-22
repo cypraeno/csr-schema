@@ -9,6 +9,7 @@
 #include <map>
 #include <functional>
 #include <limits>
+#include <stdexcept>
 
 // Constants
 const double P_INF = std::numeric_limits<double>::infinity();
@@ -38,13 +39,11 @@ std::string trim(const std::string& _str);
 bool isComment(const std::string& _line);
 
 /**
- * @brief Wrapper function that outputs the error passed through and returns false
+ * @brief Wrapper function that throws the error passed through
  * 
  * @param[in] _error The error string to be output in std::err stream
- * 
- * @return false
  */
-bool outputError(const std::string& _error);
+void outputError(const std::string& _error);
 
 /**
  * @brief Gets the next line that is non-empty and not a comment, and trims it
