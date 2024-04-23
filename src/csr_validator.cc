@@ -14,9 +14,8 @@ int main(int argc, char** argv) {
     std::string line;
 
     // Check that the version is the first file line
-    std::stringstream ss;
-    if (!getCSRLine(csrFile, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isVersion(ss, "0.1.3");
+    std::string version;
+    isVersion(csrFile, version);
 
     // Check that camera is defined after version but before everything else
     if (!getCSRLine(csrFile, line) || line != "Camera") outputError("Error: Expected Camera", exitCode::BAD_INPUT);

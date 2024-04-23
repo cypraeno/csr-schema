@@ -18,73 +18,55 @@ std::map<std::string, materialValidatorFunction> materialValidatorMap {
 
 void isMaterial(std::ifstream& _file, std::string& _materialType, std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
 
+    std::string id;
+
     // Check for valid material type
     auto matIt = materialValidatorMap.find(_materialType);
-    if (matIt == materialValidatorMap.end()) outputError("Error: Unknown material type: " + _materialType, exitCode::UNKNOWN_INPUT);
+    if (matIt == materialValidatorMap.end()) outputError("Error: Unknown material type: " + _materialType, exitCode::UNKNOWN_INPUT); 
 
-    std::string line, id;
-    std::stringstream ss;
-    
     // Check for valid ID
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    if (isMember(ss, "id", _materials, id)) outputError("Error: material id taken", exitCode::ID_TAKEN);
+    if (isMember(_file, "id", _materials, id)) outputError("Error: material id taken", exitCode::ID_TAKEN);                            
 
-    // Check specific material type
-    matIt->second(_file, _textures);
+    // Check specific material type  
+    matIt->second(_file, _textures);                                                              
 
-    // Success
+    // No Errors
     _materials.push_back(id);
 }
 
 void isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
     
-    std::string line;
-    std::stringstream ss;
+    double ir;
 
-    // Check for valid IR
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isDouble(ss, "ir", 1.0, P_INF);
+    isDouble(_file, "ir", 1.0, P_INF, ir);  // Check for valid IR
 }
 
 void isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
 
-    std::string line;
-    std::stringstream ss;
-
-    // Check for valid RGB
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isXYZ(ss, "rgb", 0.0, 255.0);
-
-    // Check for valid strength
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isDouble(ss, "strength", 0.0, P_INF);
+    xyz rgb;
+    double strength;
+    
+    isXYZ(_file, "rgb", 0.0, 255.0, rgb);               // Check for valid RGB
+    isDouble(_file, "strength", 0.0, P_INF, strength);  // Check for valid strength
 }
 
 void isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
 
-    std::string line;
-    std::stringstream ss;
-
-    // Check for valid texture
     std::string texture;
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    if (!isMember(ss, "texture", _textures, texture)) outputError("Error: Unknown texture id", exitCode::UNKNOWN_ID);
+    xyz albedo;
+    
+    // Check for valid texture
+    if (!isMember(_file, "texture", _textures, texture)) outputError("Error: Unknown texture id", exitCode::UNKNOWN_ID);     
 
     // Check for valid albedo
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isXYZ(ss, "albedo", 0.0, 255.0);
+    isXYZ(_file, "albedo", 0.0, 255.0, albedo);
 }
 
 void isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
 
-    std::string line;
-    std::stringstream ss;
+    xyz albedo;
+    double fuzz;
 
-    // Check for valid albedo
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isXYZ(ss, "albedo", 0.0, 255.0);
-
-    // Check for valid fuzz
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isDouble(ss, "fuzz", 0.0, P_INF);
+    isXYZ(_file, "albedo", 0.0, 255.0, albedo);     // Check for valid albedo
+    isDouble(_file, "fuzz", 0.0, P_INF, fuzz);      // Check for valid albedo
 }

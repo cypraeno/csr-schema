@@ -14,16 +14,14 @@ std::map<std::string, textureValidatorFunction> textureValidatorMap {
 
 void isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std::string>& _textures) {
 
+    std::string id;
+
     // Check for valid texture type
     auto texIt = textureValidatorMap.find(_textureType);
     if (texIt == textureValidatorMap.end()) outputError("Error: Unknown texture type: " + _textureType, exitCode::UNKNOWN_INPUT);
 
-    std::string line, id;
-    std::stringstream ss;
-
     // Check for valid ID
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    if (isMember(ss, "id", _textures, id)) outputError("Error: texture id taken", exitCode::ID_TAKEN);
+    if (isMember(_file, "id", _textures, id)) outputError("Error: texture id taken", exitCode::ID_TAKEN);
     if (id == "no") outputError("Error: 'no' is reserved", exitCode::BAD_INPUT);
 
     // Check specific texture type
@@ -34,30 +32,21 @@ void isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std:
 }
 
 void isChecker(std::ifstream& _file) {
+
+    double scale;
+    xyz c1, c2;
     
-    std::string line;
-    std::stringstream ss;
-
-    // Check for valid scale
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isDouble(ss, "scale", 0.0, P_INF);
-
-    // Check for valid c1
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isXYZ(ss, "c1", 0.0, 255.0);
-
-    // Check for valid c2
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isXYZ(ss, "c2", 0.0, 255.0);
+    isDouble(_file, "scale", 0.0, P_INF, scale);    // Check for valid scale
+    isXYZ(_file, "c1", 0.0, 255.0, c1);             // Check for valid c1
+    isXYZ(_file, "c2", 0.0, 255.0, c2);             // Check for valid c2
 }
 
 void isImage(std::ifstream& _file) {
 
-    std::string line;
+    std::string path;
     std::stringstream ss;
 
     // Check for valid path
-    std::vector<std::string> fileTypes{ ".png", ".jpg", ".hdr", ".pic", ".ppm", ".pgm", ".psd", ".bmp" };
-    if (!getCSRLine(_file, line) || !(ss << line)) outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    isFilePath(ss, fileTypes);
+    std::vector<std::string> imageFileTypes{ ".png", ".jpg", ".hdr", ".pic", ".ppm", ".pgm", ".psd", ".bmp" };
+    isFilePath(_file, imageFileTypes, path);
 }

@@ -48,10 +48,3 @@ std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
 
     _type = _header.substr(start_pos, end_pos - start_pos + 1);
 }
-
-void resetsstream(std::stringstream& _ss) {
-    _ss.str(""); // Clear contents
-    _ss.clear(); // Reset internal state flags
-    _ss.seekg(0); // Reset read position
-    _ss.seekp(0); // Reset write position
-}
