@@ -20,19 +20,23 @@ target_include_directories(csr-schema-lib
     $<INSTALL_INTERFACE:include>
 )
 
-# Define source files for the executable
-file(GLOB_RECURSE EXECUTABLE_SOURCES "src/*.cc")
+option(BUILD_CSR_VALIDATOR_EXECUTABLE "Build the CSR Validator executable" ON)
 
-# Create executable target
-add_executable(csr_validator ${EXECUTABLE_SOURCES})
-target_include_directories(csr_validator PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+if(BUILD_CSR_VALIDATOR_EXECUTABLE)
+    # Define source files for the executable
+    file(GLOB_RECURSE EXECUTABLE_SOURCES "src/*.cc")
 
-# Set C++ standard for the executable
-target_compile_features(csr_validator PUBLIC cxx_std_11)
-target_compile_definitions(csr_validator PRIVATE INCLUDE_MAIN)
+    # Create executable target
+    add_executable(csr_validator ${EXECUTABLE_SOURCES})
+    target_include_directories(csr_validator PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# Set optimization level for the executable
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+    # Set C++ standard for the executable
+    target_compile_features(csr_validator PUBLIC cxx_std_11)
+    target_compile_definitions(csr_validator PRIVATE INCLUDE_MAIN)
+
+    # Set optimization level for the executable
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+endif()
 
 # Instructions
 # Create build files:
