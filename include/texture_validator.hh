@@ -7,9 +7,9 @@
 /**
  * @brief Checks if a file section starting with "Texture" is a validly formatted .csr texture
  * 
- * @param[in]   _file             the file being validated
- * @param[in]   _material_type    the type of texture being validated
- * @param[out]  _textures         a vector of textures to be updated if the texture is valid
+ * @param[in]       _file             the file being validated
+ * @param[in]       _material_type    the type of texture being validated
+ * @param[in, out]  _textures         a vector of textures to be updated if the texture is valid
  * 
  * @note exits if texture is invalid
  */
