@@ -17,9 +17,6 @@ void isQuad(std::ifstream& _file, const std::vector<std::string>& _materials, st
     // Check for valid v
     isXYZ(_file, "v", N_INF, P_INF, v);
 
-    // Check valid uv orthogonality
-    if (u.x*v.x + u.y*v.y + u.z*v.z != 0.0) outputError("Error: uv not orthogonal", exitCode::BAD_INPUT);
-
     // Check for valid material
     if (!isMember(_file, "material", _materials, material)) outputError("Error: Unknown material id", exitCode::UNKNOWN_ID);
 
