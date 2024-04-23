@@ -58,7 +58,7 @@ void isRatio(std::ifstream& _file, const std::string& _keyword, const double _mi
  * 
  * @note throws std::invalid_arguemnt error if version is invalid
  */
-void isVersion(std::ifstream& _file, const std::string& _version);
+void isVersion(std::ifstream& _file, std::string& _version);
 
 /**
  * @brief Checks if a file line contains a member of the provided vector, and assigns _member that value

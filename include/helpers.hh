@@ -12,11 +12,13 @@
 #include <cstdlib>
 
 // Constants
-const std::string CURRENT_VERSION = "0.1.3";
+const std::string CURRENT_VERSION = "0.1.3";                    /**< Version accepted by validator */
+const double P_INF = std::numeric_limits<double>::infinity();   /**< Positive infinity */
+const double N_INF = -std::numeric_limits<double>::infinity();  /**< Negative infinity */
 
-const double P_INF = std::numeric_limits<double>::infinity();
-const double N_INF = -std::numeric_limits<double>::infinity();
-
+/**
+ * @brief The exit codes for various fail cases
+ */
 enum class exitCode : int {
     MISSING_ARG = 1,
     INCORRECT_ARG = 2,
@@ -29,8 +31,8 @@ enum class exitCode : int {
 };
 
 // Structs
-struct xyz      { double x, y, z; };
-struct ratio    { double num, denom; };
+struct xyz      { double x, y, z; };        /**< Implementation of struct to store a set of three doubles */
+struct ratio    { double num, denom; };     /**< Implementation of struct to store ratios */
 
 /**
  * @brief Wrapper function that outputs error to stderr stream and exits with the provided exit code
