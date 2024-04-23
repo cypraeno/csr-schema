@@ -6,7 +6,7 @@ bool isComment(const std::string& _line) {
 
     // Check if the first non-whitespace character is '#'
     for (char ch : _line) {
-        if (!std::isspace(ch)) break; // Skip whitespace
+        if (std::isspace(ch)) continue; // Skip whitespace
         return ch == '#';
     }
     return false;
