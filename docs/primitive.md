@@ -1,7 +1,7 @@
 # Primitives
 **Latest CSR version: `0.1.3`**
 
-Primitives only have one material.
+CSR files support primitives, which are geometric shapes with only one material.
 
 ## Quads
 Quads are a type of `Primitive` defined as a flat plane in 3D space.

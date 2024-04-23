@@ -1,5 +1,5 @@
 # Materials
-**Latest CSR version: `0.1.1`**
+**Latest CSR version: `0.1.3`**
 
 CSR files allow for a wide range of materials, which in turn can be assigned to meshes added to your scene.
 
@@ -11,11 +11,11 @@ argument value ...
 ```
 
 ## Usage
-Materials are stored with a unique `id`. Although it won't cause any errors, creating a second material with an identical `id` to another will simply overwrite the first.
+Materials are stored with a unique `id`. Multiple materials with the same `id` cannot be defined inside a CSR file.
 
 To use a material on an object, simply pass the `id` to its `material` argument.
 
-For example:
+**Example:**
 ```
 Material[Lambertian]
 id blue
@@ -23,6 +23,7 @@ texture no
 albedo 0.4 0.4 1.0
 
 Quad
+id quad_1
 position 4 -2 -8 
 u -4 0 4
 v 0 4 0
@@ -31,7 +32,7 @@ material blue
 A `Material` MUST be created before it is used.
 
 ## Types
-The current list of all available types are:
+The current list of all available material types are:
 - Emissive
 - Lambertian
 - Metal

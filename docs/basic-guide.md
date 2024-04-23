@@ -1,4 +1,3 @@
-
 # Caitlyn Scene Representation (CSR) User Guide
 To build scenes in caitlyn, we use a custom scene file format called `csr`. These files are designed with a very simplistic and straightforward syntax and are regularly updated to support the newest features.
 
