@@ -1,31 +1,18 @@
-#include "helpers.hh"
-#include "camera_validator.hh"
-#include "texture_validator.hh"
-#include "material_validator.hh"
-#include "primitive_validator.hh"
-#include "instance_validator.hh"
+#include "csr_validator.hh"
 
-int main(int argc, char** argv) {
-
-    // Check for correct number of args
-    if (argc != 2)                                       outputError("Usage: " + std::string(argv[0]) + " <CSR_File_Path>", exitCode::MISSING_ARG);
-
-    // Check that file can be opened
-    std::ifstream csrFile(argv[1]);
-    if (!csrFile.is_open())                             outputError("Error: Failed to open file: " + std::string(argv[1]), exitCode::FILE_ERROR);
-
+void isCSR(std::ifstream& _file) {
     std::string line;
 
     // Check that the version is the first file line
     std::string version;
-    isVersion(csrFile, version);
+    isVersion(_file, version);
 
     // Check that camera is defined after version but before everything else
     std::stringstream ss;
     std::string keyword;
-    if (!getCSRLine(csrFile, line) || !(ss << line))    outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
+    if (!getCSRLine(_file, line) || !(ss << line))    outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
     if (!(ss >> keyword) || keyword != "Camera")        outputError("Error: Expected Camera ", exitCode::BAD_INPUT);
-    isCamera(csrFile);
+    isCamera(_file);
 
     // Initialize ID vectors
     std::vector<std::string> materials;
@@ -38,39 +25,35 @@ int main(int argc, char** argv) {
     };
 
     // Validate body of CSR file
-    while(getCSRLine(csrFile, line)) {
+    while(getCSRLine(_file, line)) {
 
         // Validate textures
         if (line.find("Texture") != std::string::npos) {
             std::string texture_type;
             getType(line, texture_type);
-            isTexture(csrFile, texture_type, textures);
+            isTexture(_file, texture_type, textures);
         }
 
         // Validate materials
         else if (line.find("Material") != std::string::npos) {
             std::string material_type;
             getType(line, material_type);
-            isMaterial(csrFile, material_type, textures, materials);  
+            isMaterial(_file, material_type, textures, materials);  
         }
 
         // Validate instances
         else if (line.find("Instance") != std::string::npos) {
             std::string instance_type;
             getType(line, instance_type);
-            isInstance(csrFile, instance_type, primitiveMap);
+            isInstance(_file, instance_type, primitiveMap);
         }
 
         // Validate quads
-        else if (line == "Quad") isQuad(csrFile, materials, primitiveMap["[QuadPrimitive]"]);
+        else if (line == "Quad") isQuad(_file, materials, primitiveMap["[QuadPrimitive]"]);
 
         // Validate spheres
-        else if (line == "Sphere") isSphere(csrFile, materials, primitiveMap["[SpherePrimitive]"]);
+        else if (line == "Sphere") isSphere(_file, materials, primitiveMap["[SpherePrimitive]"]);
 
         else outputError("Error: Invalid Line <<" + line + ">>", exitCode::UNKNOWN_INPUT);
     }
-
-    std::cerr << "CSR file validation passed." << std::endl;
-
-    return 0;
 }
