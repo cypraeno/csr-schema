@@ -6,7 +6,7 @@ void isCSR(std::string& _filePath) {
 
     // Check that file can be opened
     std::ifstream file(_filePath);
-    if (!file.is_open())                           outputError("Error: Failed to open file: " + std::string(_filePath), exitCode::FILE_ERROR);
+    if (!file.is_open() || !file.good())                outputError("Error: Failed to open file: " + std::string(_filePath), exitCode::FILE_ERROR);
     
     // Check that the version is the first file line
     std::string version;
