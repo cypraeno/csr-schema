@@ -1,4 +1,3 @@
-
 # Camera
 **Latest CSR version: `0.1.2`**
 

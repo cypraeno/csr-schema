@@ -1,6 +1,6 @@
 # CSR Format Changelog
 
-Changes are listed since 0.1.1.
+Changes are listed since 0.1.2.
 
 ## v0.1.3
 ### Major changes
@@ -17,6 +17,3 @@ Instance[QuadPrimitive]
 prim_id quad_id
 translate x y z
 ```
-
-## v0.1.2
-???

@@ -1,4 +1,3 @@
-
 # Caitlyn Scene Representation (CSR) User Guide
 To build scenes in caitlyn, we use a custom scene file format called `csr`. These files are designed with a very simplistic and straightforward syntax and are regularly updated to support the newest features.
 
@@ -7,7 +6,7 @@ To begin creating a CSR file, ensure that you always begin with 2 things:
 1. Version marker
 2. Initializing the camera 
 ```py
-version 0.1.2 # Check with ./caitlyn [-v|--version]
+version X.X.X # Check with ./caitlyn [-v|--version]
 
 Camera
 lookfrom x y z
@@ -27,7 +26,7 @@ Objects are always initialized with `Name[Type]`, followed by arguments on new l
 As always, let's start our CSR with a version marker and Camera. As of March 18th, we are on version `0.1.2`.
 ```py
 # sphere.csr
-version 0.1.2
+version 0.1.3
 
 Camera
 lookfrom 5 0 0
@@ -56,6 +55,7 @@ albedo 1.0 0.0 0.0 # RedGreenBlue code
 This registers a red lambertian with the id `red_material`. Now, we can add our sphere:
 ```py
 Sphere
+id first_sphere 
 position 0 0 0 # where the camera is looking
 material red_material
 radius 1
@@ -69,5 +69,6 @@ After rendering with `./caitlyn -i sphere.csr -r 1200 1200`, we get our sphere!
 For more in-depth scenes, view the guides below:
 - [Camera](https://github.com/cypraeno/csr-schema/blob/main/camera.md)
 - [Materials](https://github.com/cypraeno/csr-schema/blob/main/material.md)
-- [Spheres](https://github.com/cypraeno/csr-schema/blob/main/sphere.md)
-- [Quads](https://github.com/cypraeno/csr-schema/blob/main/quad.md)
+- [Primitives](https://github.com/cypraeno/csr-schema/blob/main/primitive.md)
+- [Instances](https://github.com/cypraeno/csr-schema/blob/main/instance.md)
+
