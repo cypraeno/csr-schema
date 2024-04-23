@@ -58,8 +58,8 @@ void isLambertian(std::ifstream& _file, const std::vector<std::string>& _texture
     // Check for valid texture
     if (!isMember(_file, "texture", _textures, texture)) outputError("Error: Unknown texture id", exitCode::UNKNOWN_ID);     
 
-    // Check for valid albedo
-    isXYZ(_file, "albedo", 0.0, 255.0, albedo);
+    // Check for valid albedo (only if texture is "no")
+    if (texture == "no") isXYZ(_file, "albedo", 0.0, 255.0, albedo);
 }
 
 void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures) {
