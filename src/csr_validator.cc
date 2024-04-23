@@ -54,6 +54,7 @@ int main(int argc, char** argv) {
             isMaterial(csrFile, material_type, textures, materials);  
         }
 
+        // Validate instances
         else if (line.find("Instance") != std::string::npos) {
             std::string instance_type;
             getType(line, instance_type);
