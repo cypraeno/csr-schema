@@ -7,7 +7,7 @@ To begin creating a CSR file, ensure that you always begin with 2 things:
 1. Version marker
 2. Initializing the camera 
 ```py
-version 0.1.2 # Check with ./caitlyn [-v|--version]
+version X.X.X # Check with ./caitlyn [-v|--version]
 
 Camera
 lookfrom x y z

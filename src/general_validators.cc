@@ -1,7 +1,5 @@
 #include "general_validators.hh"
 
-namespace fs = std::experimental::filesystem;
-
 void isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTypes) {
 
     std::string word;
@@ -9,9 +7,6 @@ void isFilePath(std::stringstream& _ss, const std::vector<std::string>& _fileTyp
 
     std::string path;
     if (!(_ss >> path)) outputError("Error: Invalid path");
-
-    // Check if the file exists
-    if (!fs::exists(path)) outputError("Error: File does not exist");
 
     // Check if the file is accessible
     std::ifstream file(path);

@@ -2,7 +2,6 @@
 #define GEN_VALIDATOR
 
 #include "helpers.hh"
-#include <experimental/filesystem>
 
 /**
  * @brief Checks if a file line is a valid CSR file path of one of the specified file types

@@ -12,9 +12,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2") # Set the optimization level to -O
 
 target_include_directories(csr_validator PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# Link against the filesystem library
-target_link_libraries(csr_validator PRIVATE stdc++fs)
-
 # Instructions
 # Create build files:
 # mkdir build (if it does not exist already)
