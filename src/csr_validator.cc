@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     std::stringstream ss;
     std::string keyword;
     if (!getCSRLine(csrFile, line) || !(ss << line))    outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    if (!(ss >> keyword) || keyword != "Camera")        outputError("Error: Expected Camera " + keyword, exitCode::BAD_INPUT);
+    if (!(ss >> keyword) || keyword != "Camera")        outputError("Error: Expected Camera ", exitCode::BAD_INPUT);
     isCamera(csrFile);
 
     // Initialize ID vectors
