@@ -1,3 +1,5 @@
+#ifdef INCLUDE_MAIN
+
 #include "csr_validator.hh"
 #include "helpers.hh"
 
@@ -14,3 +16,5 @@ int main(int argc, char** argv) {
     std::cerr << "CSR file validation passed." << std::endl;
     return 0;
 }
+
+#endif
