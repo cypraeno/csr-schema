@@ -9,7 +9,7 @@
  * 
  * @param[in]   _file   The file being validated
  * 
- * @note throws std::invalid_arguemnt error if camera is invalid
+ * @note exits if camera is invalid
  */
 void isCamera(std::ifstream& _file);
 

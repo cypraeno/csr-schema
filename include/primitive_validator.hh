@@ -11,7 +11,7 @@
  * @param[in]   _materials  A vector of materials to be checked
  * @param[out]  _quads      A vector of quad ids to be updated if the quad is valid
  * 
- * @note throws std::invalid_arguemnt error if quad is invalid
+ * @note exits if quad is invalid
  */
 void isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _quads);
 
@@ -22,7 +22,7 @@ void isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vec
  * @param[in]   _materials  A vector of materials to be checked
  * @param[out]  _spheres    A vector of sphere ids to be updated if the quad is valid
  * 
- * @note throws std::invalid_arguemnt error if sphere is invalid
+ * @note exits if sphere is invalid
  */
 void isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _spheres);
 

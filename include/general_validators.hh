@@ -10,7 +10,7 @@
  * @param[in]   _inputFileTypes   The list of valid file types
  * @param[out]  _path             The string to assign the file path to
  * 
- * @note throws std::invalid_arguemnt error if file path is invalid
+ * @note exits if file path is invalid
  */
 void isFilePath(std::ifstream& _file, const std::vector<std::string>& _inputFileTypes, std::string& _path);
 
@@ -22,7 +22,7 @@ void isFilePath(std::ifstream& _file, const std::vector<std::string>& _inputFile
  * @param[in]   _min, _max    The min and max of the double
  * @param[out]  _value        The value to assign the double to
  * 
- * @note throws std::invalid_arguemnt error if double is invalid
+ * @note exits if double is invalid
  */
 void isDouble(std::ifstream& _file, const std::string& _keyword, const double _min, const double _max, double& _value);
 
@@ -34,7 +34,7 @@ void isDouble(std::ifstream& _file, const std::string& _keyword, const double _m
  * @param[in]   _min, _max    The min and max of the doubles
  * @param[out]  _xyz          The xyz to assign the three doubles to
  * 
- * @note throws std::invalid_arguemnt error if set of three doubles is invalid
+ * @note exits if xyz is invalid
  */
 void isXYZ(std::ifstream& _file, const std::string& _keyword, const double _min, const double _max, xyz& _xyz);
 
@@ -46,7 +46,7 @@ void isXYZ(std::ifstream& _file, const std::string& _keyword, const double _min,
  * @param[in]   _min, _max    The min and max of the ratio
  * @param[out]  _ratio        The value to assign the ratio to
  * 
- * @note throws std::invalid_arguemnt error if ratio is invalid
+ * @note exits if ratio is invalid
  */
 void isRatio(std::ifstream& _file, const std::string& _keyword, const double _min, const double _max, ratio& _ratio);
 
@@ -56,7 +56,7 @@ void isRatio(std::ifstream& _file, const std::string& _keyword, const double _mi
  * @param[in]   _file       The file of the line being evaluated
  * @param[out]  _version    The string to assign the version to
  * 
- * @note throws std::invalid_arguemnt error if version is invalid
+ * @note exits if version is invalid
  */
 void isVersion(std::ifstream& _file, std::string& _version);
 
@@ -68,9 +68,10 @@ void isVersion(std::ifstream& _file, std::string& _version);
  * @param[in]   _members    The vector of members to be checked against
  * @param[out]  _member     The string to assign the member to
  * 
- * @return true if line member belongs to _members
+ * @return true if line member belongs to _members; 
+ *         false if it does not
  * 
- * @note throws std::invalid_arguemnt error if member is incorrectly formatted
+ * @note exits if member is incorrectly formatted
  */
 bool isMember(std::ifstream& _file, const std::string& _keyword, const std::vector<std::string>& _members, std::string& _member);
 

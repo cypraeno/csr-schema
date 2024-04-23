@@ -12,7 +12,7 @@
  * @param[in]   _textures       A vector of textures to be checked (lambertian surfaces)
  * @param[out]  _materials      A vector of materials to be updated if the material is valid
  * 
- * @note throws std::invalid_arguemnt error if material is invalid
+ * @note exits if material is invalid
  */
 void isMaterial(std::ifstream& _file, std::string& _materialType, std::vector<std::string>& _textures, std::vector<std::string>& _materials);
 

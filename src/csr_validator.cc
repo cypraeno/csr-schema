@@ -3,6 +3,7 @@
 #include "texture_validator.hh"
 #include "material_validator.hh"
 #include "primitive_validator.hh"
+#include "instance_validator.hh"
 
 int main(int argc, char** argv) {
 
@@ -32,6 +33,12 @@ int main(int argc, char** argv) {
     std::vector<std::string> quads;
     std::vector<std::string> spheres;
 
+    // Initialize map of primitve ID vectors
+    std::map<std::string, std::vector<std::string>> primitiveMap {
+        { "[QuadPrimitive]", quads},
+        { "[SpherePrimitive]", spheres},
+    };
+
     // Validate body of CSR file
     while(getCSRLine(csrFile, line)) {
 
@@ -47,6 +54,12 @@ int main(int argc, char** argv) {
             std::string material_type;
             getType(line, material_type);
             isMaterial(csrFile, material_type, textures, materials);  
+        }
+
+        else if (line.find("Instance") != std::string::npos) {
+            std::string instance_type;
+            getType(line, instance_type);
+            isInstance(csrFile, primitiveMap);
         }
 
         // Validate quads
