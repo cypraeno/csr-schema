@@ -4,7 +4,7 @@
 CSR files support instances, which allow for efficient copying of primitives
 
 ## Blueprint
-```
+```py
 Instance[type]
 prim_id name
 translate x y z
@@ -18,7 +18,7 @@ Instances are copies of existing primitives. To create an instance of a primitiv
 3. Pass the translation vector (relative to the targeted primitive) to its `translate` argumnent
 
 **Example:**
-```
+```py
 Quad
 id quad_1
 position 4 -2 -8 

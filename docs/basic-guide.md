@@ -26,7 +26,7 @@ Objects are always initialized with `Name[Type]`, followed by arguments on new l
 As always, let's start our CSR with a version marker and Camera. As of March 18th, we are on version `0.1.2`.
 ```py
 # sphere.csr
-version 0.1.2
+version 0.1.3
 
 Camera
 lookfrom 5 0 0
@@ -55,6 +55,7 @@ albedo 1.0 0.0 0.0 # RedGreenBlue code
 This registers a red lambertian with the id `red_material`. Now, we can add our sphere:
 ```py
 Sphere
+id first_sphere 
 position 0 0 0 # where the camera is looking
 material red_material
 radius 1
@@ -68,5 +69,6 @@ After rendering with `./caitlyn -i sphere.csr -r 1200 1200`, we get our sphere!
 For more in-depth scenes, view the guides below:
 - [Camera](https://github.com/cypraeno/csr-schema/blob/main/camera.md)
 - [Materials](https://github.com/cypraeno/csr-schema/blob/main/material.md)
-- [Spheres](https://github.com/cypraeno/csr-schema/blob/main/sphere.md)
-- [Quads](https://github.com/cypraeno/csr-schema/blob/main/quad.md)
+- [Primitives](https://github.com/cypraeno/csr-schema/blob/main/primitive.md)
+- [Instances](https://github.com/cypraeno/csr-schema/blob/main/instance.md)
+
