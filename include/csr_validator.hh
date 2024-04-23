@@ -11,10 +11,10 @@
 /**
  * @brief Checks if a CSR file is correctly formatted
  * 
- * @param[in]   _file   The file being validated
+ * @param[in]   _file   The path of the file
  * 
  * @note exits if CSR file is invalid
  */
-void isCSR(std::ifstream& _file);
+void isCSR(std::string& _file);
 
 #endif
