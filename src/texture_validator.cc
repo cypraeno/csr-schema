@@ -5,11 +5,13 @@ using textureValidatorFunction = std::function<void(std::ifstream&)>;
 // Forward declarations
 void isChecker(std::ifstream& _file);
 void isImage(std::ifstream& _file);
+void isNoise(std::ifstream& _file);
 
 // UPDATE this list as new materials are defined
 std::map<std::string, textureValidatorFunction> textureValidatorMap {
     { "[Checker]", isChecker },
     { "[Image]", isImage },
+    { "[Noise]", isNoise },
 };
 
 void isTexture(std::ifstream& _file, const std::string& _textureType, std::vector<std::string>& _textures) {
@@ -49,4 +51,11 @@ void isImage(std::ifstream& _file) {
     // Check for valid path
     std::vector<std::string> imageFileTypes{ ".png", ".jpg", ".hdr", ".pic", ".ppm", ".pgm", ".psd", ".bmp" };
     isFilePath(_file, imageFileTypes, path);
+}
+
+void isNoise(std::ifstream& _file) {
+
+    double scale;
+
+    isDouble(_file, "scale", 0.0, P_INF, scale);    // Check for valid scale
 }
