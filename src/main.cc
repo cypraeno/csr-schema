@@ -13,7 +13,8 @@ int main(int argc, char** argv) {
     // Check if CSR file is valid
     isCSR(csrFile);
 
+    // Success
     std::cerr << "CSR file validation passed." << std::endl;
-
+    csrFile.close();
     return 0;
 }
