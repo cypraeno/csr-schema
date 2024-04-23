@@ -13,7 +13,7 @@
  * 
  * @note exits if quad is invalid
  */
-void isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _quads);
+void isQuad(std::ifstream& _file, const std::vector<std::string>& _materials, std::vector<std::string>& _quads);
 
 /**
  * @brief Checks if a file section starting with "Sphere" is a validly formatted .csr quad
@@ -24,6 +24,6 @@ void isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vec
  * 
  * @note exits if sphere is invalid
  */
-void isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _spheres);
+void isSphere(std::ifstream& _file, const std::vector<std::string>& _materials, std::vector<std::string>& _spheres);
 
 #endif

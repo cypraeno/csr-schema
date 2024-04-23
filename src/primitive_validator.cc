@@ -1,6 +1,6 @@
 #include "primitive_validator.hh"
 
-void isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _quads) {
+void isQuad(std::ifstream& _file, const std::vector<std::string>& _materials, std::vector<std::string>& _quads) {
 
     std::string id, material;
     xyz position, u, v;
@@ -27,7 +27,7 @@ void isQuad(std::ifstream& _file, std::vector<std::string>& _materials, std::vec
     _quads.push_back(id);
 }
 
-void isSphere(std::ifstream& _file, std::vector<std::string>& _materials, std::vector<std::string>& _spheres) {
+void isSphere(std::ifstream& _file, const std::vector<std::string>& _materials, std::vector<std::string>& _spheres) {
 
     std::string id, material;
     xyz position;

@@ -12,7 +12,7 @@ std::map<std::string, textureValidatorFunction> textureValidatorMap {
     { "[Image]", isImage },
 };
 
-void isTexture(std::ifstream& _file, std::string& _textureType, std::vector<std::string>& _textures) {
+void isTexture(std::ifstream& _file, const std::string& _textureType, std::vector<std::string>& _textures) {
 
     std::string id;
 

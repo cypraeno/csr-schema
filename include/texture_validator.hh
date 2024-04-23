@@ -13,6 +13,6 @@
  * 
  * @note exits if texture is invalid
  */
-void isTexture(std::ifstream& _file, std::string& _texture_type, std::vector<std::string>& _textures);
+void isTexture(std::ifstream& _file, const std::string& _texture_type, std::vector<std::string>& _textures);
 
 #endif

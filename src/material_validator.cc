@@ -1,12 +1,12 @@
 #include "material_validator.hh"
 
-using materialValidatorFunction = std::function<void(std::ifstream&, std::vector<std::string>&)>;
+using materialValidatorFunction = std::function<void(std::ifstream&, const std::vector<std::string>&)>;
 
 // Forward declarations
-void isDielectric(std::ifstream& _file, std::vector<std::string>& _textures);
-void isEmissive(std::ifstream& _file, std::vector<std::string>& _textures);
-void isLambertian(std::ifstream& _file, std::vector<std::string>& _textures);
-void isMetal(std::ifstream& _file, std::vector<std::string>& _textures);
+void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures);
+void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures);
+void isLambertian(std::ifstream& _file, const std::vector<std::string>& _textures);
+void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures);
 
 // UPDATE this list as new materials are defined
 std::map<std::string, materialValidatorFunction> materialValidatorMap {
@@ -16,7 +16,7 @@ std::map<std::string, materialValidatorFunction> materialValidatorMap {
     { "[Metal]", isMetal },
 };
 
-void isMaterial(std::ifstream& _file, std::string& _materialType, std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isMaterial(std::ifstream& _file, const std::string& _materialType, const std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
 
     std::string id;
 
@@ -34,14 +34,14 @@ void isMaterial(std::ifstream& _file, std::string& _materialType, std::vector<st
     _materials.push_back(id);
 }
 
-void isDielectric(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures) {
     
     double ir;
 
     isDouble(_file, "ir", 1.0, P_INF, ir);  // Check for valid IR
 }
 
-void isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures) {
 
     xyz rgb;
     double strength;
@@ -50,7 +50,7 @@ void isEmissive(std::ifstream& _file, std::vector<std::string>& _textures) {
     isDouble(_file, "strength", 0.0, P_INF, strength);  // Check for valid strength
 }
 
-void isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isLambertian(std::ifstream& _file, const std::vector<std::string>& _textures) {
 
     std::string texture;
     xyz albedo;
@@ -62,7 +62,7 @@ void isLambertian(std::ifstream& _file, std::vector<std::string>& _textures) {
     isXYZ(_file, "albedo", 0.0, 255.0, albedo);
 }
 
-void isMetal(std::ifstream& _file, std::vector<std::string>& _textures) {
+void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures) {
 
     xyz albedo;
     double fuzz;
