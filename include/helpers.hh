@@ -9,18 +9,30 @@
 #include <map>
 #include <functional>
 #include <limits>
-#include <stdexcept>
+#include <cstdlib>
 
 // Constants
 const double P_INF = std::numeric_limits<double>::infinity();
 const double N_INF = -std::numeric_limits<double>::infinity();
 
+enum class exitCode : int {
+    MISSING_ARG = 1,
+    INCORRECT_ARG = 2,
+    NO_INPUT = 3,
+    BAD_INPUT = 4,
+    UNKNOWN_INPUT = 5,
+    ID_TAKEN = 6,
+    UNKNOWN_ID = 7,
+    FILE_ERROR = 8,
+};
+
 /**
- * @brief Wrapper function that throws the error passed through as an std::invalid_arguement error
+ * @brief Wrapper function that outputs error to stderr stream and exits with the provided exit code
  * 
- * @param[in] _error The error string to be thrown
+ * @param[in] _error The error string to be outputted
+ * @param[in] _code  The exit code used for exit
  */
-void outputError(const std::string& _error);
+void outputError(const std::string& _error, const exitCode _code);
 
 /**
  * @brief Gets the next line that is non-empty and not a comment, and trims it

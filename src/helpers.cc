@@ -19,8 +19,10 @@ bool isComment(const std::string& _line) {
     return false;
 }
 
-void outputError(const std::string& _error) {
-    throw std::invalid_argument(lineNum + " - " + _error);
+void outputError(const std::string& _error, const exitCode _code) {
+    if (lineNum != 0) std::cerr << lineNum << " - ";
+    std::cerr << _error << std::endl;
+    std::exit(static_cast<int>(_code));
 }
 
 std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
@@ -39,10 +41,10 @@ std::istream& getCSRLine(std::istream& _istream, std::string& _line) {
 
  void getType(const std::string& _header, std::string& _type) {
     size_t start_pos = _header.find_first_of('[');
-    if (start_pos == std::string::npos) outputError("Error: type indicator <<[>> missing");
+    if (start_pos == std::string::npos) outputError("Error: type indicator <<[>> missing", exitCode::BAD_INPUT);
 
     size_t end_pos = _header.find_first_of(']', start_pos);
-    if (end_pos == std::string::npos) outputError("Error: type indicator <<]>> missing");
+    if (end_pos == std::string::npos) outputError("Error: type indicator <<]>> missing", exitCode::BAD_INPUT);
 
     _type = _header.substr(start_pos, end_pos - start_pos + 1);
 }
