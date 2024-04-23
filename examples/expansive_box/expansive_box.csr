@@ -1,0 +1,273 @@
+version 0.1.3
+
+#lookfrom 12.5 3 0
+#lookat 0 1 0
+Camera
+lookfrom 12.5 3 0
+lookat 0 1 0
+vup 0 1 0
+vfov 50
+aspect_ratio 16/9
+aperture 0.001
+focus_dist 15
+
+# Basic lambertians
+Material[Lambertian]
+id green_ish
+texture no
+albedo 0.1 0.8 0.15
+
+Material[Lambertian]
+id red_ish
+texture no
+albedo 0.8 0.15 0.1
+
+Material[Lambertian]
+id blue_ish
+texture no
+albedo 0.15 0.1 0.8
+
+Material[Lambertian]
+id white_ish
+texture no
+albedo 0.8 0.8 0.8
+
+# Emissive
+Material[Emissive]
+id key_light
+rgb 0.8 0.5 0.9
+strength 20
+
+Material[Emissive]
+id sphere_light
+rgb 1.0 1.0 1.0
+strength 10
+
+
+# WALLS
+Quad
+id floor
+position -15 -2 11.5
+u 30 0 0
+v 0 0 -23
+material green_ish
+
+Instance[QuadPrimitive]
+prim_id floor
+translate 0 10 0
+
+Quad
+id left_wall
+position -15 -2 11.5
+u 0 10 0
+v 23 0 0
+material red_ish
+
+Quad
+id right_wall
+position -15 -2 -11.5
+u 0 10 0
+v 23 0 0
+material blue_ish
+
+Quad
+id facing_wall
+position -15 -2 11.5
+u 0 10 0
+v 0 0 -23
+material white_ish
+
+Instance[QuadPrimitive]
+prim_id facing_wall
+translate 30 0 0
+
+
+# MAIN LIGHTS
+
+Quad
+id key
+position -13 8 5
+u 5 0 5
+v 1 -5 1
+material key_light
+
+Sphere
+id middle_sphere
+position 0 -1.5 0
+material sphere_light
+radius 0.5
+
+# Earth in a glass box
+# EARTH
+Texture[Image]
+id earth_texture
+path ./expansive_box/earthmap.jpg
+
+Material[Lambertian]
+id earth_surface
+texture earth_texture
+
+Sphere
+id earth
+position -6 0.5 -6
+material earth_surface
+radius 2
+
+# GLASS BOX
+Material[Dielectric]
+id glass
+ir 1.5
+
+Quad
+id back_glass_wall
+position -10 2.75 -6
+u 4 0 -4
+v 0 -4.5 0
+material glass
+
+Quad
+id side_glass_wall
+position -10 2.75 -6
+u 4 0 4
+v 0 -4.5 0
+material glass
+
+Quad
+id top_glass_wall
+position -10 2.75 -6
+u 4 0 -4
+v 4 0 4
+material glass
+
+Instance[QuadPrimitive]
+prim_id back_glass_wall
+translate 4 0 4
+
+Instance[QuadPrimitive]
+prim_id side_glass_wall
+translate 4 0 -4
+
+Instance[QuadPrimitive]
+prim_id top_glass_wall
+translate 0 -4.5 0
+
+
+
+#CHESS BOARD
+Texture[Image]
+id chess_texture
+path ./expansive_box/wood-chess.jpg
+
+Material[Lambertian]
+id chesslambert
+texture chess_texture
+
+Texture[Image]
+id wood_texture
+path ./expansive_box/chess-sides.jpg
+
+Material[Lambertian]
+id chess_wood
+texture wood_texture
+
+Quad
+id chess_board
+position 5 -1.8 2
+u -5 0 0
+v 0 0 5
+material chesslambert
+
+Quad
+id chess_right
+position 5 -1.8 2
+u -5 0 0
+v 0 -0.2 0
+material chess_wood
+
+Quad
+id chess_facing
+position 5 -1.8 2
+u 0 0 5
+v 0 -0.2 0
+material chess_wood
+
+Instance[QuadPrimitive]
+prim_id chess_board
+translate 0 -0.2 0
+
+Instance[QuadPrimitive]
+prim_id chess_right
+translate 0 0 5
+
+Instance[QuadPrimitive]
+prim_id chess_facing
+translate 5 0 0
+
+
+# Fancy Spheres
+# Diamond sphere on top of chess BOARD
+Material[Dielectric]
+id diamond
+ir 2.4
+
+Sphere
+id diamond_sphere
+position 2.5 -0.3 4.5
+material diamond
+radius 1.5
+
+
+# Two mirrors
+Material[Metal]
+id mirror
+albedo 1.0 1.0 1.0
+fuzz 0.0001
+
+Quad
+id mirror_left
+position -8 4 2
+u 1 0 5
+v 0 -6 0
+material mirror
+
+Sphere
+id sphere_mirror
+position -8 -1 -0.5
+material mirror
+radius 1
+
+# Glossy Blue Sphere
+Material[Metal]
+id blue_glossy
+albedo 0.05 0.05 1.0
+fuzz 0.001
+
+Sphere
+id glossy_blue_sphere
+position -5 4 -0.5
+material blue_glossy
+radius 1.3
+
+
+# Perlin showcase
+# light
+Quad
+id top_light
+position 13.5 4 -1
+u 2 0 0
+v 0 0 2
+material key_light
+
+Texture[Noise]
+id noise_texture
+scale 8
+
+Material[Lambertian]
+id noise_material
+texture noise_texture
+
+Sphere
+id perlin_sphere
+position 13.5 2.5 0
+material noise_material
+radius 1
