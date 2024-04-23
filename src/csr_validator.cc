@@ -24,19 +24,17 @@ int main(int argc, char** argv) {
     std::stringstream ss;
     std::string keyword;
     if (!getCSRLine(csrFile, line) || !(ss << line))    outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
-    if (!(ss >> keyword) || keyword != "Camera")        outputError("Error: Expected Camera", exitCode::BAD_INPUT);
+    if (!(ss >> keyword) || keyword != "Camera")        outputError("Error: Expected Camera " + keyword, exitCode::BAD_INPUT);
     isCamera(csrFile);
 
     // Initialize ID vectors
     std::vector<std::string> materials;
     std::vector<std::string> textures{ "no" };
-    std::vector<std::string> quads;
-    std::vector<std::string> spheres;
 
     // Initialize map of primitve ID vectors
     std::map<std::string, std::vector<std::string>> primitiveMap {
-        { "[QuadPrimitive]", quads},
-        { "[SpherePrimitive]", spheres},
+        { "[QuadPrimitive]", {} },
+        { "[SpherePrimitive]", {} },
     };
 
     // Validate body of CSR file
@@ -59,14 +57,14 @@ int main(int argc, char** argv) {
         else if (line.find("Instance") != std::string::npos) {
             std::string instance_type;
             getType(line, instance_type);
-            isInstance(csrFile, primitiveMap);
+            isInstance(csrFile, instance_type, primitiveMap);
         }
 
         // Validate quads
-        else if (line == "Quad") isQuad(csrFile, materials, quads);
+        else if (line == "Quad") isQuad(csrFile, materials, primitiveMap["[QuadPrimitive]"]);
 
         // Validate spheres
-        else if (line == "Sphere") isSphere(csrFile, materials, spheres);
+        else if (line == "Sphere") isSphere(csrFile, materials, primitiveMap["[SpherePrimitive]"]);
 
         else outputError("Error: Invalid Line <<" + line + ">>", exitCode::UNKNOWN_INPUT);
     }
