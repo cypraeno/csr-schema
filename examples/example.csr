@@ -1,0 +1,23 @@
+# sphere.csr
+version 0.1.3
+
+Camera
+lookfrom 5 0 0
+lookat 0 0 0
+vup 0 1 0
+vfov 45
+aspect_ratio 1/1
+aperture 0.001
+focus_dist 5.0 # focus on objects 5 units away from us.
+
+# Init a Material object with the Lambertian type.
+Material[Lambertian]
+id red_material # give it a name
+texture no # we aren't giving it a custom texture
+albedo 1.0 0.0 0.0 # RedGreenBlue code
+
+Sphere
+id example
+position 0 0 0 # where the camera is looking
+material red_material
+radius 1
