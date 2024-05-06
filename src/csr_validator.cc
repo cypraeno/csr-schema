@@ -27,6 +27,7 @@ void isCSR(std::string& _filePath) {
     std::map<std::string, std::vector<std::string>> primitiveMap {
         { "[QuadPrimitive]", {} },
         { "[SpherePrimitive]", {} },
+        { "[BoxPrimitive]", {} },
     };
 
     // Validate body of CSR file
@@ -58,6 +59,9 @@ void isCSR(std::string& _filePath) {
 
         // Validate spheres
         else if (line == "Sphere") isSphere(file, materials, primitiveMap["[SpherePrimitive]"]);
+
+        // Validate boxes
+        else if (line == "Box") isBox(file, materials, primitiveMap["[BoxPrimitive]"]);
 
         else outputError("Error: Invalid Line <<" + line + ">>", exitCode::UNKNOWN_INPUT);
     }
