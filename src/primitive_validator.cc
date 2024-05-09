@@ -67,7 +67,7 @@ void isBox(std::ifstream& _file, const std::vector<std::string>& _materials, std
     isXYZ(_file, "c", N_INF, P_INF, c);
 
     // Check for valid material
-    if (isMember(_file, "material", _materials, material)) outputError("Error: Unknown material id", exitCode::UNKNOWN_ID);
+    if (!isMember(_file, "material", _materials, material)) outputError("Error: Unknown material id", exitCode::UNKNOWN_ID);
 
     // Success
     _boxes.push_back(id);
