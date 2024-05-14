@@ -26,4 +26,13 @@ void isQuad(std::ifstream& _file, const std::vector<std::string>& _materials, st
  */
 void isSphere(std::ifstream& _file, const std::vector<std::string>& _materials, std::vector<std::string>& _spheres);
 
+/**
+ * @brief Checks if a file section starting with "Box" is a validly formatted .csr box
+ * 
+ * @param[in]       _file       The file being validated
+ * @param[in]       _materials  A vector of materials to be checked
+ * @param[in, out]  _boxes      A vector of box ids to be updated if the box is valid
+ */
+void isBox(std::ifstream& _file, const std::vector<std::string>& _materials, std::vector<std::string>& _boxes);
+
 #endif
