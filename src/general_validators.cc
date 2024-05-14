@@ -29,6 +29,19 @@ void isFilePath(std::ifstream& _file, const std::vector<std::string>& _inputFile
     if (!validFileType)                             outputError("Error: Invalid file type", exitCode::BAD_INPUT);
 }
 
+void isBoolean(std::ifstream& _file, const std::string& _keyword, bool& _value) {
+    
+        std::string line;
+        std::stringstream ss;
+    
+        if (!getCSRLine(_file, line) || !(ss << line))  outputError("Error: Unexpected EOF", exitCode::NO_INPUT);
+    
+        std::string word;
+        if (!(ss >> word) || word != _keyword)          outputError("Error: Expected " + _keyword, exitCode::BAD_INPUT);
+
+        if(!(ss >> std::boolalpha >> _value))           outputError("Error: No " + _keyword + " found. Valid inputs are [true/false]", exitCode::BAD_INPUT);
+}
+
 void isDouble(std::ifstream& _file, const std::string& _keyword, const double _min, const double _max, double& _value) {
     
     std::string line;
