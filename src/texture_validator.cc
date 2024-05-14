@@ -45,11 +45,18 @@ void isChecker(std::ifstream& _file) {
 
 void isImage(std::ifstream& _file) {
 
+    bool transparency;
     std::string path;
-    std::stringstream ss;
+    std::vector<std::string> imageFileTypes;
+
+    // Check for valid transparency
+    isBoolean(_file, "transparency", transparency);
+
+    // Assign valid image file types
+    if (transparency) imageFileTypes = { ".png" };
+    else imageFileTypes = { ".png", ".jpg", ".hdr", ".pic", ".ppm", ".pgm", ".psd", ".bmp" };
 
     // Check for valid path
-    std::vector<std::string> imageFileTypes{ ".png", ".jpg", ".hdr", ".pic", ".ppm", ".pgm", ".psd", ".bmp" };
     isFilePath(_file, imageFileTypes, path);
 }
 
