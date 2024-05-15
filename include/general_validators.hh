@@ -15,6 +15,17 @@
 void isFilePath(std::ifstream& _file, const std::vector<std::string>& _inputFileTypes, std::string& _path);
 
 /**
+ * @brief Checks if a file line is a valid boolean
+ * 
+ * @param[in]   _file       The file of the line being evaluated
+ * @param[in]   _keyword    The keyword that the line must start with
+ * @param[out]  _value      The boolean to assign the value to
+ * 
+ * @note exits if boolean is invalid
+ */
+void isBoolean(std::ifstream& _file, const std::string& _keyword, bool& _value);
+
+/**
  * @brief Checks if a file line is a valid double between min and max
  * 
  * @param[in]   _file         The file of the line being evaluated

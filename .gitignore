@@ -30,4 +30,5 @@
 *.out
 *.app
 
+# Build Folder
 build/

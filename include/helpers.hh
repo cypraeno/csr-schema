@@ -12,7 +12,7 @@
 #include <cstdlib>
 
 // Constants
-const std::string CURRENT_VERSION = "0.1.3";                    /**< Version accepted by validator */
+const std::string CURRENT_VERSION = "0.1.5";                    /**< Version accepted by validator */
 const double P_INF = std::numeric_limits<double>::infinity();   /**< Positive infinity */
 const double N_INF = -std::numeric_limits<double>::infinity();  /**< Negative infinity */
 
