@@ -23,6 +23,7 @@ void isCSR(std::string& _filePath) {
     std::vector<std::string> materials;
     std::vector<std::string> textures{ "no" };
     std::vector<std::string> mediums;
+    std::vector<std::string> volumes;
 
     // Initialize map of primitve ID vectors
     std::map<std::string, std::vector<std::string>> primitiveMap {
@@ -68,6 +69,12 @@ void isCSR(std::string& _filePath) {
         else if (line == "Sky") isSky(file);
 
         else if (line == "Medium") isMedium(file, mediums);
+
+        else if (line == "Volume") {
+            std::vector<std::string> concatenated = primitiveMap["[SpherePrimitive]"]; 
+            concatenated.insert(concatenated.end(), primitiveMap["[BoxPrimitive]"].begin(), primitiveMap["[BoxPrimitive]"].end());
+            isVolume(file, mediums, concatenated, volumes);
+        }
 
         else outputError("Error: Invalid Line <<" + line + ">>", exitCode::UNKNOWN_INPUT);
     }

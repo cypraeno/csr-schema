@@ -9,6 +9,7 @@
 #include "instance_validator.hh"
 #include "sky_validator.hh"
 #include "medium_validator.hh"
+#include "volume_validator.hh"
 
 /**
  * @brief Checks if a CSR file is correctly formatted
