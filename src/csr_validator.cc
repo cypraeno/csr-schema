@@ -22,6 +22,7 @@ void isCSR(std::string& _filePath) {
     // Initialize ID vectors
     std::vector<std::string> materials;
     std::vector<std::string> textures{ "no" };
+    std::vector<std::string> mediums;
 
     // Initialize map of primitve ID vectors
     std::map<std::string, std::vector<std::string>> primitiveMap {
@@ -65,6 +66,8 @@ void isCSR(std::string& _filePath) {
 
         // Validate Sky
         else if (line == "Sky") isSky(file);
+
+        else if (line == "Medium") isMedium(file, mediums);
 
         else outputError("Error: Invalid Line <<" + line + ">>", exitCode::UNKNOWN_INPUT);
     }
