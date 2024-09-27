@@ -6,7 +6,7 @@ void isMedium(std::ifstream& _file, std::vector<std::string>& _mediums) {
     xyz albedo;
 
     // Check for valid ID
-    if (isMember(_file, "id", _mediums, id)) outputError("Error: material id taken", exitCode::ID_TAKEN);
+    if (isMember(_file, "id", _mediums, id)) outputError("Error: medium id taken", exitCode::ID_TAKEN);
 
     // Check for valid density
     isDouble(_file, "density", 0.0, P_INF, density);
