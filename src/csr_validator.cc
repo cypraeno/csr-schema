@@ -63,6 +63,9 @@ void isCSR(std::string& _filePath) {
         // Validate boxes
         else if (line == "Box") isBox(file, materials, primitiveMap["[BoxPrimitive]"]);
 
+        // Validate Sky
+        else if (line == "Sky") isSky(file);
+
         else outputError("Error: Invalid Line <<" + line + ">>", exitCode::UNKNOWN_INPUT);
     }
 
