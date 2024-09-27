@@ -72,8 +72,8 @@ void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures) 
 void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures) {
 
     xyz albedo;
-    double fuzz;
+    double roughness;
 
     isXYZ(_file, "albedo", 0.0, 255.0, albedo);     // Check for valid albedo
-    isDouble(_file, "fuzz", 0.0, P_INF, fuzz);      // Check for valid albedo
+    isDouble(_file, "roughness", 0.0, P_INF, roughness);      // Check for valid roughness
 }
