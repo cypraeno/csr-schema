@@ -5,14 +5,14 @@ using materialValidatorFunction = std::function<void(std::ifstream&, const std::
 // Forward declarations
 void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures);
 void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures);
-void isLambertian(std::ifstream& _file, const std::vector<std::string>& _textures);
+void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures);
 void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures);
 
 // UPDATE this list as new materials are defined
 std::map<std::string, materialValidatorFunction> materialValidatorMap {
     { "[Dielectric]", isDielectric },
     { "[Emissive]", isEmissive },
-    { "[Lambertian]", isLambertian },
+    { "[Diffuse]", isDiffuse },
     { "[Metal]", isMetal },
 };
 
@@ -50,16 +50,20 @@ void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures)
     isDouble(_file, "strength", 0.0, P_INF, strength);  // Check for valid strength
 }
 
-void isLambertian(std::ifstream& _file, const std::vector<std::string>& _textures) {
+void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures) {
 
     std::string texture;
     xyz albedo;
+    double roughness;
     
     // Check for valid texture
     if (!isMember(_file, "texture", _textures, texture)) outputError("Error: Unknown texture id", exitCode::UNKNOWN_ID);     
 
     // Check for valid albedo (only if texture is "no")
-    if (texture == "no") isXYZ(_file, "albedo", 0.0, 255.0, albedo);
+    if (texture == "no") {
+        isXYZ(_file, "albedo", 0.0, 255.0, albedo);
+        isDouble(_file, "roughness", 0.0, 1.0, roughness);
+    }
 }
 
 void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures) {

@@ -9,7 +9,7 @@
  * 
  * @param[in]       _file           The file being validated
  * @param[in]       _materialType   The type of material being validated
- * @param[in]       _textures       A vector of textures to be checked (lambertian surfaces)
+ * @param[in]       _textures       A vector of textures to be checked (diffuse surfaces)
  * @param[in, out]  _materials      A vector of materials to be updated if the material is valid
  * 
  * @note exits if material is invalid

@@ -58,7 +58,7 @@ std::istream& getCSRLine(std::istream& _istream, std::string& _line);
  * @param[in]   _header The string from which the type is extracted 
  * @param[out]  _type   The string to assign the type to
  * 
- * @note The type is the text between "[]". "Material[Lambertian]" has "Lambertian" as its type
+ * @note The type is the text between "[]". "Material[Diffuse]" has "Diffuse" as its type
  */
  void getType(const std::string& _header, std::string& _type);
 
