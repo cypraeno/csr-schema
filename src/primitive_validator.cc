@@ -29,6 +29,7 @@ void isSphere(std::ifstream& _file, const std::vector<std::string>& _materials, 
     std::string id, material;
     xyz position;
     double radius;
+    bool medium;
 
     // Check for valid ID
     if (isMember(_file, "id", _spheres, id)) outputError("Error: sphere id taken", exitCode::ID_TAKEN);
@@ -42,6 +43,8 @@ void isSphere(std::ifstream& _file, const std::vector<std::string>& _materials, 
     // Check for valid radius
     isDouble(_file, "radius", 0.0, P_INF, radius);
 
+    isBoolean(_file, "medium", medium);
+
     // Success
     _spheres.push_back(id);
 }
@@ -50,6 +53,7 @@ void isBox(std::ifstream& _file, const std::vector<std::string>& _materials, std
     
     std::string id, material;
     xyz position, a, b, c;
+    bool medium;
     
     // Check for valid ID
     if (isMember(_file, "id", _boxes, id)) outputError("Error: box id taken", exitCode::ID_TAKEN);
@@ -68,6 +72,9 @@ void isBox(std::ifstream& _file, const std::vector<std::string>& _materials, std
 
     // Check for valid material
     if (!isMember(_file, "material", _materials, material)) outputError("Error: Unknown material id", exitCode::UNKNOWN_ID);
+
+    // Check for medium boolean
+    isBoolean(_file, "medium", medium);
 
     // Success
     _boxes.push_back(id);
