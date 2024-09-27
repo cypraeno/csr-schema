@@ -35,10 +35,13 @@ void isMaterial(std::ifstream& _file, const std::string& _materialType, const st
 }
 
 void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures) {
-    
-    double ir;
+    xyz albedo;
+    double eta, roughness, sheen;
 
-    isDouble(_file, "ir", 1.0, P_INF, ir);  // Check for valid IR
+    isXYZ(_file, "albedo", 0.0, 255.0, albedo); // Check for valid albedo
+    isDouble(_file, "eta", 1.0, P_INF, eta);  // Check for valid IR
+    isDouble(_file, "roughness", 0.0, 1.0, roughness);  // Check for valid roughness
+    isDouble(_file, "sheen", 0.0, P_INF, sheen); // Check for valid sheen
 }
 
 void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures) {
