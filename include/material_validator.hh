@@ -14,6 +14,6 @@
  * 
  * @note exits if material is invalid
  */
-void isMaterial(std::ifstream& _file, const std::string& _materialType, const std::vector<std::string>& _textures, std::vector<std::string>& _materials);
+void isMaterial(std::ifstream& _file, const std::string& _materialType, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums);
 
 #endif

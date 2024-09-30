@@ -1,13 +1,14 @@
 #include "material_validator.hh"
 
-using materialValidatorFunction = std::function<void(std::ifstream&, const std::vector<std::string>&, std::vector<std::string>& _materials)>;
+using materialValidatorFunction = std::function<void(std::ifstream&, const std::vector<std::string>&, std::vector<std::string>&, std::vector<std::string>&)>;
 
 // Forward declarations
-void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials);
-void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials);
-void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials);
-void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials);
-void isMixture(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials);
+void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums);
+void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums);
+void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums);
+void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums);
+void isMixture(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums);
+void isLayered(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums);
 
 // UPDATE this list as new materials are defined
 std::map<std::string, materialValidatorFunction> materialValidatorMap {
@@ -15,10 +16,11 @@ std::map<std::string, materialValidatorFunction> materialValidatorMap {
     { "[Emissive]", isEmissive },
     { "[Diffuse]", isDiffuse },
     { "[Metal]", isMetal },
-    { "[Mixture]", isMixture }
+    { "[Mixture]", isMixture },
+    { "[Layered]", isLayered }
 };
 
-void isMaterial(std::ifstream& _file, const std::string& _materialType, const std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isMaterial(std::ifstream& _file, const std::string& _materialType, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums) {
 
     std::string id;
 
@@ -30,13 +32,13 @@ void isMaterial(std::ifstream& _file, const std::string& _materialType, const st
     if (isMember(_file, "id", _materials, id)) outputError("Error: material id taken", exitCode::ID_TAKEN);                            
 
     // Check specific material type  
-    matIt->second(_file, _textures, _materials);                                                              
+    matIt->second(_file, _textures, _materials, _mediums);                                                              
 
     // No Errors
     _materials.push_back(id);
 }
 
-void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isDielectric(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums) {
     xyz albedo;
     double eta, roughness, sheen;
 
@@ -48,7 +50,7 @@ void isDielectric(std::ifstream& _file, const std::vector<std::string>& _texture
     if (sheen != static_cast<int>(sheen)) { outputError("Error: sheen must be an integer.", exitCode::INCORRECT_ARG); }
 }
 
-void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums) {
 
     xyz rgb;
     double strength;
@@ -57,7 +59,7 @@ void isEmissive(std::ifstream& _file, const std::vector<std::string>& _textures,
     isDouble(_file, "strength", 0.0, P_INF, strength);  // Check for valid strength
 }
 
-void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums) {
 
     std::string texture;
     xyz albedo;
@@ -73,7 +75,7 @@ void isDiffuse(std::ifstream& _file, const std::vector<std::string>& _textures, 
     }
 }
 
-void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums) {
 
     xyz albedo;
     double roughness;
@@ -82,7 +84,7 @@ void isMetal(std::ifstream& _file, const std::vector<std::string>& _textures, st
     isDouble(_file, "roughness", 0.0, P_INF, roughness);      // Check for valid roughness
 }
 
-void isMixture(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials) {
+void isMixture(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums) {
 
     double num;
 
@@ -102,5 +104,21 @@ void isMixture(std::ifstream& _file, const std::vector<std::string>& _textures, 
 
         // Subtract from weight remaining
         weight_remaining -= weight;
+    }
+}
+
+
+void isLayered(std::ifstream& _file, const std::vector<std::string>& _textures, std::vector<std::string>& _materials, std::vector<std::string>& _mediums) {
+    std::string top_id, bottom_id, medium_id;
+
+    // Check valid top and bottom ids
+    if (!isMember(_file, "top", _materials, top_id)) outputError("Error: Unknown id for top", exitCode::UNKNOWN_ID); 
+    if (!isMember(_file, "bottom", _materials, bottom_id)) outputError("Error: Unknown id for bottom", exitCode::UNKNOWN_ID); 
+
+    // Check for valid texture
+    if (!isMember(_file, "medium", _mediums, medium_id)) {
+        if (medium_id != "no") {
+            outputError("Error: Unknown medium id", exitCode::UNKNOWN_ID);
+        }
     }
 }

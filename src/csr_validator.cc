@@ -46,7 +46,7 @@ void isCSR(std::string& _filePath) {
         else if (line.find("Material") != std::string::npos) {
             std::string material_type;
             getType(line, material_type);
-            isMaterial(file, material_type, textures, materials);  
+            isMaterial(file, material_type, textures, materials, mediums);  
         }
 
         // Validate instances
